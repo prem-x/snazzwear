@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<section class="shop-wrapper">
+
+    <!-- HEADER BAR -->
+    <div class="shop-top" style="border-bottom: 1px solid #ddd; padding-bottom: 20px; margin-bottom: 30px;">
+        <div class="shop-left">
+            <h2 style="font-size: 24px; font-weight: bold; margin: 0;">YOUR WISHLIST</h2>
+            <span class="product-count" style="margin-left: 15px; color: #666;">
+                {{ products|length }} SAVED ITEMS
+            </span>
+        </div>
+    </div>
+
+    <!-- PRODUCT GRID -->
+    <div class="shop-grid">
+
+        {% for product in products %}
+
+        <div class="premium-card">
+            <div class="premium-image-wrapper">
+                <div class="premium-badge">SAVE 15%</div>
+                <div class="premium-heart" data-product-id="{{ product.id }}">
+                    <svg class="{% if product.id in wishlist_product_ids %}active{% endif %}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                </div>
+                <a href="{% url 'product_detail' product.slug %}">
+                    {% if product.productimage_set.first %}
+                        <img src="{{ product.productimage_set.first.image.url }}" alt="{{ product.name }}">
+                    {% else %}
+                        <img src="{% static 'image/back.png' %}" alt="{{ product.name }}">
+                    {% endif %}
+                    <div class="premium-add-cart-overlay">ADD TO CART</div>
+                </a>
+            </div>
+            <div class="premium-info">
+                <a href="{% url 'product_detail' product.slug %}" style="text-decoration: none;">
+                    <h4 class="premium-title">{{ product.name }}</h4>
+                </a>
+                <div class="premium-prices">
+                    <span class="premium-old-price">Rs.{{ product.price|add:"200" }}</span>
+                    <span class="premium-new-price">Rs.{{ product.price }}</span>
+                </div>
+            </div>
+        </div>
+
+        {% empty %}
+            <p style="padding: 40px 0; font-size: 16px; color: #777;">Your wishlist is currently empty. Go explore the shop to find your next favorite piece!</p>
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

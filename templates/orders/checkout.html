@@ -1,0 +1,11 @@
+<form method="POST">
+    {% csrf_token %}
+
+    <textarea name="address" placeholder="Full Address"></textarea>
+    <input type="text" name="coupon" placeholder="Coupon Code">
+
+    <h3>Subtotal: ₹{{ subtotal }}</h3>
+    <h4>Shipping: ₹{{ shipping }}</h4>
+
+    <button type="submit">Pay Now</button>
+</form>

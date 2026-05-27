@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<section class="checkout-page">
+
+    <div class="checkout-container">
+
+        <!-- LEFT SIDE FORM -->
+        <div class="checkout-left">
+            <form method="POST" action="{% url 'checkout' %}">
+                {% csrf_token %}
+                
+                <h2>Contact</h2>
+                <input type="email" name="email" placeholder="Email or mobile phone number" class="input-box" required>
+
+                <h2>Delivery</h2>
+
+                <input type="text" name="country" placeholder="Country/Region" value="India" class="input-box" required>
+
+                <div class="two-col">
+                    <input type="text" name="first_name" placeholder="First name" class="input-box" required>
+                    <input type="text" name="last_name" placeholder="Last name" class="input-box" required>
+                </div>
+
+                <input type="text" name="address" placeholder="Address" class="input-box" required>
+                <input type="text" name="apartment" placeholder="Apartment, suite, etc. (optional)" class="input-box">
+
+                <div class="three-col">
+                    <input type="text" name="city" placeholder="City" class="input-box" required>
+                    <input type="text" name="state" placeholder="State" class="input-box" required>
+                    <input type="text" name="pincode" placeholder="PIN code" class="input-box" required>
+                </div>
+
+                <input type="tel" name="phone" placeholder="Phone" class="input-box" required>
+
+                <h2>Payment</h2>
+
+                <div class="payment-options">
+                    <label class="payment-box active" style="display: block; padding: 10px; border: 1px solid #ccc; margin-bottom: 10px; cursor: pointer;">
+                        <input type="radio" name="payment_method" value="razorpay" checked>
+                        Razorpay Secure (UPI, Cards, Wallets)
+                    </label>
+                    <label class="payment-box" style="display: block; padding: 10px; border: 1px solid #ccc; margin-bottom: 20px; cursor: pointer;">
+                        <input type="radio" name="payment_method" value="cod">
+                        Cash on Delivery (COD)
+                    </label>
+                </div>
+
+                <button type="submit" class="pay-btn">Place Order</button>
+            </form>
+        </div>
+
+
+        <!-- RIGHT SIDE SUMMARY -->
+        <div class="checkout-right">
+
+            {% for item in items %}
+            <div class="summary-item">
+                <img src="{{ item.product_variant.product.productimage_set.first.image.url }}">
+                <div>
+                    <p>{{ item.product_variant.product.name }}</p>
+                    <small>Size: {{ item.product_variant.size.name }}</small>
+                </div>
+                <span>₹{{ item.total_price }}</span>
+            </div>
+            {% endfor %}
+
+            <hr>
+
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <span>₹{{ subtotal }}</span>
+            </div>
+
+            <div class="summary-row total">
+                <span>Total</span>
+                <span>₹{{ subtotal }}</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

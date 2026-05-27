@@ -1,0 +1,355 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<section class="product-page">
+
+    <div class="product-container">
+
+        <!-- LEFT SIDE -->
+        <div class="product-left">
+
+            <div class="main-product-image" id="mainImageContainer">
+                
+                
+                {% if images %}
+                    <img src="{{ images.0.image.url }}" id="mainImage" data-index="0">
+                {% else %}
+                    <img src="{% static 'images/back.png' %}" id="mainImage" data-index="0">
+                {% endif %}
+                
+                <div class="carousel-dots" id="carouselDots">
+                    {% for img in images %}
+                        <span class="dot {% if forloop.first %}active{% endif %}" data-index="{{ forloop.counter0 }}"></span>
+                    {% empty %}
+                        <span class="dot active" data-index="0"></span>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- 4 Thumbnail frames in a row -->
+            <div class="thumbnail-row">
+                {% for img in images %}
+                    {% if forloop.counter <= 4 %}
+                    <img src="{{ img.image.url }}"
+                         class="thumb {% if forloop.first %}active{% endif %}"
+                         data-index="{{ forloop.counter0 }}"
+                         alt="{{ product.name }}">
+                    {% endif %}
+                {% endfor %}
+                {% for i in "1234" %}
+                    {% if forloop.counter > images|length %}
+                    <div class="thumb-placeholder">
+                        <span></span>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT SIDE -->
+        <div class="product-right">
+
+            <h2 class="pd-title">{{ product.name }}</h2>
+
+            <!-- PRICE -->
+            <div class="pd-price-row">
+                <span class="pd-old-price">Rs.{{ product.price|add:"200" }}</span>
+                <span class="pd-new-price">Rs.{{ product.price }}</span>
+                <span class="pd-save-badge">SAVE 15%</span>
+            </div>
+            <p class="pd-shipping"><u>Shipping</u> calculated at checkout.</p>
+
+            <!-- SIZE SECTION -->
+            <div class="pd-size-box">
+                <div class="pd-size-header">
+                    <span class="pd-size-label">SIZE: <span id="selectedSizeLabel">—</span></span>
+                    <a href="#" class="pd-sizing-guide">✏ Sizing guide</a>
+                </div>
+
+                <div class="pd-size-options">
+                    {% for variant in variants %}
+                        <button
+                            type="button"
+                            class="pd-size-btn {% if variant.stock == 0 %}pd-disabled{% endif %}"
+                            data-id="{{ variant.id }}"
+                            data-name="{{ variant.size.name }}"
+                            {% if variant.stock == 0 %}disabled{% endif %}
+                        >
+                            {{ variant.size.name }}
+                        </button>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- QUANTITY + ADD TO CART -->
+            <div class="pd-action-row">
+                <div class="pd-qty">
+                    <button type="button" class="pd-qty-btn" id="qtyMinus">−</button>
+                    <span id="qtyValue">1</span>
+                    <button type="button" class="pd-qty-btn" id="qtyPlus">+</button>
+                </div>
+                <button id="addToCartBtn" class="pd-add-btn" disabled>ADD TO CART</button>
+            </div>
+
+            <button class="pd-buy-btn">BUY IT NOW</button>
+
+            <!-- SPECIAL OFFERS -->
+            <div class="pd-offers-card">
+                <p class="pd-offers-title">Special Offers</p>
+                <div class="pd-offer-item">
+                    <span class="pd-offer-pill">Prepaid Discounts</span>
+                    <div class="pd-offer-text">
+                        <strong>Get ₹40 Off on UPI</strong>
+                        <p>5+ Discounts Available</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DELIVERY CHECKER -->
+            <div class="pd-delivery-card">
+                <p class="pd-delivery-title">Check Delivery and Pickup:</p>
+                <div class="pd-delivery-row">
+                    <input type="text" id="pincodeInput" class="pd-pincode-input" placeholder="📍 Enter Pincode">
+                    <button class="pd-check-btn">CHECK</button>
+                </div>
+                <p class="pd-delivery-hint">Enter your pincode to <strong>check delivery date</strong> and <strong>nearby store availability</strong></p>
+            </div>
+
+            <!-- VIEW SIMILAR -->
+            <div class="view-similar">
+                <h4>VIEW SIMILAR</h4>
+                <div class="similar-row">
+                    {% for p in similar_products %}
+                        <a href="{% url 'product_detail' p.slug %}">
+                            <img src="{{ p.productimage_set.first.image.url }}">
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- CORE FEATURES -->
+            <div class="core-features">
+                <h4>CORE FEATURES</h4>
+                <ul>
+                    <li>100% cotton</li>
+                    <li>220 gsm</li>
+                    <li>oversized fit</li>
+                    <li>round neck</li>
+                    <li>half sleeves</li>
+                </ul>
+            </div>
+
+            <!-- ACCORDION -->
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-btn" onclick="toggleAccordion(this)">
+                        <span>DESCRIPTION</span>
+                        <span class="acc-icon">+</span>
+                    </button>
+                    <div class="accordion-content">
+                        <p>{{ product.description|linebreaksbr }}</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-btn" onclick="toggleAccordion(this)">
+                        <span>SHIPPING</span>
+                        <span class="acc-icon">+</span>
+                    </button>
+                    <div class="accordion-content">
+                        <p>We offer standard shipping across India. Orders are processed within 24-48 hours and typically delivered within 3-7 business days.</p>
+                        <p>Free shipping is automatically applied at checkout for all prepaid orders above ₹999.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-btn" onclick="toggleAccordion(this)">
+                        <span>RETURNS</span>
+                        <span class="acc-icon">+</span>
+                    </button>
+                    <div class="accordion-content">
+                        <p>We accept size exchanges and returns within 7 days of delivery, provided the tags are intact and the product is unworn and unwashed.</p>
+                        <p>To initiate a return, please visit your account dashboard or contact our customer support team.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-btn" onclick="toggleAccordion(this)">
+                        <span>CARE GUIDE</span>
+                        <span class="acc-icon">+</span>
+                    </button>
+                    <div class="accordion-content">
+                        <ul>
+                            <li>Cold machine wash inside out (30°C max)</li>
+                            <li>Do not iron directly on prints or graphics</li>
+                            <li>Tumble dry low or hang dry in shade</li>
+                            <li>Do not bleach or dry clean</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- CUSTOMER ALSO LOVED -->
+<section class="related-products">
+    <h3>CUSTOMER ALSO LOVED</h3>
+
+    <div class="related-grid">
+        {% for p in related_products %}
+        <div class="premium-card">
+            <div class="premium-image-wrapper">
+                <div class="premium-badge">SAVE 15%</div>
+                <div class="premium-heart" data-product-id="{{ p.id }}">
+                    <svg class="{% if p.id in wishlist_product_ids %}active{% endif %}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                </div>
+                <a href="{% url 'product_detail' p.slug %}">
+                    {% if p.productimage_set.first %}
+                        <img src="{{ p.productimage_set.first.image.url }}" alt="{{ p.name }}">
+                    {% else %}
+                        <img src="{% static 'image/back.png' %}" alt="{{ p.name }}">
+                    {% endif %}
+                    <div class="premium-add-cart-overlay">ADD TO CART</div>
+                </a>
+            </div>
+            <div class="premium-info">
+                <a href="{% url 'product_detail' p.slug %}" style="text-decoration: none;">
+                    <h4 class="premium-title">{{ p.name }}</h4>
+                </a>
+                <div class="premium-prices">
+                    <span class="premium-old-price">Rs.{{ p.price|add:"200" }}</span>
+                    <span class="premium-new-price">Rs.{{ p.price }}</span>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No related products found.</p>
+        {% endfor %}
+    </div>
+</section>
+
+
+
+<script>
+let selectedVariant = null;
+let qty = 1;
+
+const sizeButtons = document.querySelectorAll(".pd-size-btn");
+const addBtn = document.getElementById("addToCartBtn");
+const selectedSizeLabel = document.getElementById("selectedSizeLabel");
+
+// Size Selection
+sizeButtons.forEach(btn => {
+    btn.addEventListener("click", function () {
+        sizeButtons.forEach(b => b.classList.remove("active"));
+        this.classList.add("active");
+        selectedVariant = this.dataset.id;
+        selectedSizeLabel.textContent = this.dataset.name;
+        addBtn.disabled = false;
+        addBtn.classList.add("enabled");
+    });
+});
+
+// Quantity Controls
+const qtyMinus = document.getElementById("qtyMinus");
+const qtyPlus = document.getElementById("qtyPlus");
+const qtyValue = document.getElementById("qtyValue");
+
+qtyMinus.addEventListener("click", () => {
+    if (qty > 1) { qty--; qtyValue.textContent = qty; }
+});
+qtyPlus.addEventListener("click", () => {
+    qty++;
+    qtyValue.textContent = qty;
+});
+
+// Add To Cart
+addBtn.addEventListener("click", function () {
+    if (!selectedVariant) return;
+    fetch("{% url 'add_to_cart' %}", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "X-CSRFToken": "{{ csrf_token }}"
+        },
+        body: "variant_id=" + selectedVariant + "&quantity=" + qty
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            loadCart();
+            document.getElementById("cartDrawer").classList.add("open");
+        } else {
+            alert(data.message);
+        }
+    });
+});
+
+// Image Gallery Switching
+const mainImage = document.getElementById("mainImage");
+const thumbnails = document.querySelectorAll(".thumb");
+const dots = document.querySelectorAll(".dot");
+
+let currentImageIndex = 0;
+const totalImages = thumbnails.length;
+
+function updateGallery(index) {
+    if (totalImages === 0) return;
+    
+    // Update Main Image
+    mainImage.src = thumbnails[index].src;
+    mainImage.dataset.index = index;
+    
+    // Update Thumbnails
+    thumbnails.forEach(t => t.classList.remove("active"));
+    thumbnails[index].classList.add("active");
+    
+    // Update Dots
+    dots.forEach(d => d.classList.remove("active"));
+    if(dots[index]) dots[index].classList.add("active");
+    
+    currentImageIndex = index;
+}
+
+if (totalImages > 0) {
+    thumbnails.forEach((thumb, index) => {
+        thumb.addEventListener("click", function() {
+            updateGallery(index);
+        });
+    });
+    
+    dots.forEach((dot, index) => {
+        dot.addEventListener("click", function() {
+            updateGallery(index);
+        });
+    });
+}
+
+// Accordion Toggle
+function toggleAccordion(btn) {
+    const item = btn.closest('.accordion-item');
+    const content = item.querySelector('.accordion-content');
+    const icon = btn.querySelector('.acc-icon');
+    const isOpen = item.classList.contains('open');
+
+    // Close all
+    document.querySelectorAll('.accordion-item.open').forEach(el => {
+        el.classList.remove('open');
+        el.querySelector('.accordion-content').style.maxHeight = null;
+        el.querySelector('.acc-icon').textContent = '+';
+    });
+
+    // Open clicked if it was closed
+    if (!isOpen) {
+        item.classList.add('open');
+        content.style.maxHeight = content.scrollHeight + 'px';
+        icon.textContent = '−';
+    }
+}
+</script>
+
+{% endblock %}

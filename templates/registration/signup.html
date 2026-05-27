@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="login-section">
+    <div class="login-container">
+        <h2 class="section-title">SIGN UP</h2>
+        <form method="post" class="login-form">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    <input type="{{ field.field.widget.input_type|default:'text' }}" name="{{ field.name }}" id="{{ field.id_for_label }}" class="input-box" required>
+                    {% if field.help_text %}
+                        <small style="display: block; font-size: 11px; color: #777; margin-top: 5px;">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% for error in field.errors %}
+                        <p style="color: red; font-size: 12px; margin-top: 5px;">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="pay-btn">CREATE ACCOUNT</button>
+        </form>
+        <div class="login-footer">
+            <p>Already have an account? <a href="{% url 'login' %}">Sign in</a></p>
+        </div>
+    </div>
+</section>
+
+<style>
+.login-section {
+    padding: 100px 8%;
+    background: var(--bg-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+}
+
+.login-container {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    padding: 40px;
+    width: 100%;
+    max-width: 450px;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.login-container .section-title {
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-family: var(--font-heading);
+    letter-spacing: 4px;
+    color: var(--text-primary);
+}
+
+.login-form .form-group {
+    margin-bottom: 20px;
+}
+
+.login-form label {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    letter-spacing: 0.5px;
+}
+
+.login-footer {
+    margin-top: 25px;
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.login-footer a {
+    color: var(--accent);
+    font-weight: bold;
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+    transition: var(--transition-fast);
+}
+
+.login-footer a:hover {
+    color: var(--text-primary);
+    border-bottom-color: var(--text-primary);
+}
+</style>
+{% endblock %}

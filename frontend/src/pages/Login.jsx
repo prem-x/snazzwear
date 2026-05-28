@@ -65,29 +65,11 @@ export default function Login() {
             {/* Subtle background grid pattern */}
             <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, opacity: 0.05, pointerEvents: 'none', backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
             
-            {/* Logo and Snazz Pass Badge container */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap', gap: '20px', marginBottom: '35px', zIndex: 2 }}>
-              <Link to="/" style={{ textDecoration: 'none', color: '#ffffff' }}>
-                <span style={{ fontFamily: 'Orbitron, sans-serif', fontWeight: '900', fontSize: '32px', letterSpacing: '2px', display: 'block', textShadow: '0 0 15px rgba(255,255,255,0.1)' }}>SNAZZ</span>
-                <span style={{ fontFamily: 'Orbitron, sans-serif', fontWeight: '900', fontSize: '32px', letterSpacing: '2px', display: 'block', opacity: 0.9, marginTop: '-5px' }}>WEAR</span>
-              </Link>
-              
-              {/* SNAZZ PASS Badge */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '4px', background: 'rgba(255, 255, 255, 0.08)', border: '1px solid rgba(255, 255, 255, 0.15)', padding: '6px 12px', borderRadius: '12px', fontFamily: "'Outfit', sans-serif", fontSize: '14px', fontWeight: '700', color: '#ffffff', letterSpacing: '0.5px' }}>
-                <span>Snazz</span>
-                <span style={{ color: '#ffb800', display: 'flex', alignItems: 'center' }}>
-                  <svg width="12" height="15" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M19 9h-6l3-7L5 15h6l-3 7z"/>
-                  </svg>
-                </span>
-                <span>Pass</span>
-              </div>
-            </div>
-            
-            {/* Welcome messages */}
+            {/* Centered Logo container */}
             <div style={{ zIndex: 2 }}>
-              <h2 style={{ fontSize: '28px', fontWeight: '800', marginBottom: '12px', fontFamily: "'Outfit', sans-serif", color: '#ffffff' }}>Welcome!</h2>
-              <p style={{ fontSize: '16px', fontWeight: '600', color: '#c1c3c9', fontFamily: "'Plus Jakarta Sans', sans-serif", margin: 0 }}>Register to avail the best deals!</p>
+              <Link to="/" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <img src="/logo.png" alt="SNAZZ WEAR" style={{ height: '160px', width: 'auto', objectFit: 'contain' }} />
+              </Link>
             </div>
           </div>
           

@@ -19,27 +19,11 @@
             <div class="auth-left-brand-pane">
                 <div class="auth-brand-grid-overlay"></div>
                 
-                <div class="auth-brand-badge-container">
-                    <a href="{% url 'home' %}" class="auth-brand-link">
-                        <span class="auth-brand-title">SNAZZ</span>
-                        <span class="auth-brand-subtitle">WEAR</span>
+                <!-- Centered Logo container -->
+                <div style="z-index: 2; display: flex; justify-content: center; align-items: center; width: 100%;">
+                    <a href="{% url 'home' %}" class="auth-brand-link" style="display: flex; align-items: center; justify-content: center;">
+                        <img src="{% static 'images/logo.png' %}" alt="SNAZZ WEAR" style="height: 160px; width: auto; object-fit: contain;">
                     </a>
-                    
-                    <!-- SNAZZ PASS Badge -->
-                    <div class="auth-pass-badge">
-                        <span>Snazz</span>
-                        <span class="auth-pass-bolt">
-                            <svg width="12" height="15" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M19 9h-6l3-7L5 15h6l-3 7z"/>
-                            </svg>
-                        </span>
-                        <span>Pass</span>
-                    </div>
-                </div>
-                
-                <div class="auth-welcome-container">
-                    <h2 class="auth-welcome-title">Welcome!</h2>
-                    <p class="auth-welcome-subtitle">Register to avail the best deals!</p>
                 </div>
             </div>
             

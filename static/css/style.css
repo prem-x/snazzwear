@@ -15,6 +15,14 @@
     --font-display: 'Syne', sans-serif;
     --transition-smooth: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-fast: all 0.2s ease;
+    
+    /* GLASSMORPHISM DESIGN SYSTEM */
+    --glass-bg: rgba(15, 16, 19, 0.45);
+    --glass-bg-hover: rgba(25, 26, 30, 0.55);
+    --glass-border: rgba(255, 255, 255, 0.05);
+    --glass-border-hover: rgba(255, 255, 255, 0.15);
+    --glass-blur: blur(16px);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.05);
 }
 
 /* RESET */
@@ -3110,3 +3118,442 @@ body {
         background: var(--bg-secondary);
     }
 }
+
+/* AESTHETIC & ANIMATED PREMIUM FOOTER */
+.main-footer {
+    position: relative;
+    border-top: 1px solid rgba(255, 255, 255, 0.02) !important;
+    background: 
+        radial-gradient(circle at 50% 100%, rgba(255, 95, 54, 0.09) 0%, rgba(7, 7, 9, 0) 70%),
+        linear-gradient(rgba(255, 255, 255, 0.003) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.003) 1px, transparent 1px),
+        var(--bg-primary) !important;
+    background-size: 100% 100%, 25px 25px, 25px 25px, auto !important;
+    overflow: hidden;
+    padding-top: 90px !important;
+    transition: var(--transition-smooth);
+}
+
+/* Glowing Neon Top Laser Line */
+.main-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, #ff5f36, #ff007f, #00d2ff, #ff007f, #ff5f36);
+    background-size: 300% 100%;
+    animation: footerLaserBorder 8s linear infinite;
+    box-shadow: 0 0 15px rgba(255, 95, 54, 0.5);
+    z-index: 5;
+}
+
+@keyframes footerLaserBorder {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 300% 0%; }
+}
+
+/* Premium Web Typography & Cyber Glow for Logo */
+.footer-logo {
+    font-family: 'Orbitron', sans-serif !important;
+    font-size: 32px !important;
+    font-weight: 900 !important;
+    line-height: 1.0 !important;
+    letter-spacing: 2px !important;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #ffffff 40%, rgba(255, 255, 255, 0.4) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: var(--transition-smooth);
+    cursor: pointer;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+}
+
+.footer-logo:hover {
+    background: var(--accent-gradient) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    filter: drop-shadow(0 0 15px var(--accent-glow));
+    transform: skewX(-6deg) scale(1.02);
+}
+
+/* Headings with Glowing Accent Underlines */
+.footer-col-heading {
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    color: #fff !important;
+    letter-spacing: 2px !important;
+    margin-bottom: 22px !important;
+    text-transform: uppercase;
+    font-family: var(--font-heading) !important;
+    position: relative;
+    display: inline-block;
+}
+
+.footer-col-heading::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 20px;
+    height: 2px;
+    background: var(--accent);
+    transition: var(--transition-smooth);
+}
+
+.footer-col:hover .footer-col-heading::after,
+.footer-explore:hover .footer-col-heading::after {
+    width: 45px;
+    background: #ff007f;
+    box-shadow: 0 0 10px rgba(255, 0, 127, 0.8);
+}
+
+/* Premium Link Hover Animation */
+.footer-col .footer-link, 
+.footer-explore .footer-link {
+    position: relative;
+    display: inline-block;
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: var(--transition-smooth);
+}
+
+.footer-col .footer-link:hover, 
+.footer-explore .footer-link:hover {
+    color: var(--text-primary) !important;
+    transform: translateX(10px);
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+.footer-col .footer-link::before,
+.footer-explore .footer-link::before {
+    content: '>';
+    position: absolute;
+    left: -12px;
+    opacity: 0;
+    color: var(--accent);
+    font-family: var(--font-heading);
+    font-weight: 800;
+    transition: var(--transition-smooth);
+}
+
+.footer-col .footer-link:hover::before,
+.footer-explore .footer-link:hover::before {
+    opacity: 1;
+    left: -8px;
+    color: #ff007f;
+}
+
+/* Glassmorphism Newsletter Container */
+.footer-newsletter {
+    background: rgba(15, 16, 19, 0.45);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.04) !important;
+    padding: 35px !important;
+    border-radius: 16px !important;
+    max-width: 500px !important;
+    position: relative;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+    transition: var(--transition-smooth);
+}
+
+.footer-newsletter:hover {
+    border-color: rgba(255, 95, 54, 0.2) !important;
+    box-shadow: 0 12px 40px 0 rgba(255, 95, 54, 0.05);
+    transform: translateY(-4px);
+}
+
+.footer-newsletter::after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    right: 25px;
+    width: 50px;
+    height: 2px;
+    background: var(--accent-gradient);
+    box-shadow: 0 0 8px var(--accent);
+}
+
+/* Glow-on-focus Email Field */
+.footer-email-row {
+    display: flex;
+    border: 1px solid rgba(255, 255, 255, 0.07) !important;
+    border-radius: 30px !important;
+    overflow: hidden;
+    background: rgba(7, 7, 9, 0.3) !important;
+    transition: var(--transition-smooth);
+    padding: 3px !important;
+}
+
+.footer-email-row:focus-within {
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 20px var(--accent-glow) !important;
+    background: rgba(7, 7, 9, 0.7) !important;
+}
+
+.footer-email-input {
+    flex: 1;
+    background: transparent !important;
+    border: none !important;
+    color: var(--text-primary) !important;
+    padding: 10px 18px !important;
+    font-size: 14px !important;
+    outline: none !important;
+}
+
+.footer-email-btn {
+    background: var(--bg-tertiary) !important;
+    border: none !important;
+    border-radius: 50% !important;
+    width: 38px !important;
+    height: 38px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: var(--text-primary) !important;
+    cursor: pointer !important;
+    font-size: 16px !important;
+    transition: var(--transition-smooth) !important;
+    padding: 0 !important;
+}
+
+.footer-email-btn:hover {
+    background: var(--accent-gradient) !important;
+    color: #fff !important;
+    transform: scale(1.08) !important;
+    box-shadow: 0 0 10px var(--accent-glow);
+}
+
+/* Glassmorphic payment pills */
+.pay-pill {
+    padding: 5px 14px !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-radius: 20px !important;
+    font-size: 10px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.5px !important;
+    color: var(--text-secondary) !important;
+    background: rgba(15, 16, 19, 0.4) !important;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    transition: var(--transition-smooth) !important;
+}
+
+.pay-pill:hover {
+    border-color: var(--text-primary) !important;
+    color: var(--text-primary) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
+}
+
+/* Social icons animations */
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px !important;
+    height: 38px !important;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    background: rgba(15, 16, 19, 0.4) !important;
+    color: var(--text-secondary) !important;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    transition: var(--transition-smooth) !important;
+}
+
+.social-icon:hover {
+    background: var(--accent-gradient) !important;
+    border-color: transparent !important;
+    color: #fff !important;
+    transform: scale(1.15) rotate(8deg);
+    box-shadow: 0 0 15px var(--accent-glow);
+    filter: drop-shadow(0 0 8px var(--accent-glow));
+}
+
+/* FLUID GLASSMORPHISM OVERRIDES */
+
+/* 1. Header Glassmorphism */
+.main-header {
+    background: rgba(7, 7, 9, 0.65) !important;
+    backdrop-filter: var(--glass-blur) !important;
+    -webkit-backdrop-filter: var(--glass-blur) !important;
+    border-bottom: 1px solid var(--glass-border) !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
+}
+
+/* 2. Product Card Glassmorphism */
+.product-card {
+    background: var(--glass-bg) !important;
+    backdrop-filter: var(--glass-blur) !important;
+    -webkit-backdrop-filter: var(--glass-blur) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-radius: 16px !important;
+    box-shadow: var(--glass-shadow) !important;
+    transition: var(--transition-smooth) !important;
+    overflow: hidden;
+}
+
+.product-card:hover {
+    background: var(--glass-bg-hover) !important;
+    border-color: rgba(255, 95, 54, 0.25) !important;
+    box-shadow: 0 12px 40px rgba(255, 95, 54, 0.08), var(--glass-shadow) !important;
+    transform: translateY(-5px) scale(1.01) !important;
+}
+
+.product-card img {
+    transition: var(--transition-smooth) !important;
+}
+
+.product-card:hover img {
+    transform: scale(1.03) !important;
+}
+
+/* 3. Cart Drawer & Elements Glassmorphism */
+.cart-drawer {
+    background: rgba(7, 7, 9, 0.65) !important;
+    backdrop-filter: var(--glass-blur) !important;
+    -webkit-backdrop-filter: var(--glass-blur) !important;
+    border-left: 1px solid var(--glass-border) !important;
+    box-shadow: -15px 0 40px rgba(0, 0, 0, 0.6) !important;
+}
+
+.cart-item-card, 
+.cart-coupon-card, 
+.cart-related-section {
+    background: var(--glass-bg) !important;
+    border: 1px solid var(--glass-border) !important;
+    backdrop-filter: var(--glass-blur) !important;
+    -webkit-backdrop-filter: var(--glass-blur) !important;
+    box-shadow: var(--glass-shadow) !important;
+    transition: var(--transition-smooth) !important;
+}
+
+.cart-item-card:hover {
+    background: var(--glass-bg-hover) !important;
+    border-color: var(--glass-border-hover) !important;
+}
+
+.cart-sticky-footer {
+    background: rgba(15, 16, 19, 0.65) !important;
+    backdrop-filter: var(--glass-blur) !important;
+    -webkit-backdrop-filter: var(--glass-blur) !important;
+    border-top: 1px solid var(--glass-border) !important;
+    border-top-left-radius: 20px !important;
+    border-top-right-radius: 20px !important;
+}
+
+/* 4. Auth Modal Glassmorphism */
+.auth-modal-overlay {
+    background: rgba(0, 0, 0, 0.6) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+}
+
+.auth-modal {
+    background: rgba(15, 16, 19, 0.5) !important;
+    backdrop-filter: var(--glass-blur) !important;
+    -webkit-backdrop-filter: var(--glass-blur) !important;
+    border: 1px solid var(--glass-border) !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), var(--glass-shadow) !important;
+}
+
+.auth-left {
+    background: rgba(7, 7, 9, 0.45) !important;
+    backdrop-filter: var(--glass-blur) !important;
+    -webkit-backdrop-filter: var(--glass-blur) !important;
+    border-right: 1px solid var(--glass-border) !important;
+}
+
+.auth-right {
+    background: transparent !important;
+}
+
+.auth-input-group-animated, 
+.auth-input-group {
+    background: rgba(7, 7, 9, 0.3) !important;
+    border: 1px solid var(--glass-border) !important;
+    transition: var(--transition-smooth) !important;
+}
+
+.auth-input-group-animated:focus-within, 
+.auth-input-group:focus-within {
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 15px var(--accent-glow) !important;
+}
+
+/* 5. Detail Page Elements Glassmorphism */
+.um-size-box {
+    background: var(--glass-bg) !important;
+    backdrop-filter: var(--glass-blur) !important;
+    -webkit-backdrop-filter: var(--glass-blur) !important;
+    border: 1px solid var(--glass-border) !important;
+    box-shadow: var(--glass-shadow) !important;
+}
+
+.um-size-btn {
+    background: rgba(7, 7, 9, 0.3) !important;
+    border: 1px solid var(--glass-border) !important;
+    color: var(--text-primary) !important;
+}
+
+.um-size-btn:hover:not(.um-disabled) {
+    border-color: var(--glass-border-hover) !important;
+    background: rgba(7, 7, 9, 0.5) !important;
+}
+
+.accordion-item, 
+.accordion-header {
+    background: var(--glass-bg) !important;
+    border: 1px solid var(--glass-border) !important;
+    box-shadow: var(--glass-shadow) !important;
+}
+
+/* 6. Checkout Components Glassmorphism */
+.checkout-right {
+    background: var(--glass-bg) !important;
+    backdrop-filter: var(--glass-blur) !important;
+    -webkit-backdrop-filter: var(--glass-blur) !important;
+    border: 1px solid var(--glass-border) !important;
+    box-shadow: var(--glass-shadow) !important;
+}
+
+.input-box {
+    background: rgba(15, 16, 19, 0.3) !important;
+    border: 1px solid var(--glass-border) !important;
+    transition: var(--transition-smooth) !important;
+}
+
+.input-box:focus {
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 15px var(--accent-glow) !important;
+    background: rgba(15, 16, 19, 0.6) !important;
+}
+
+.payment-box {
+    background: rgba(15, 16, 19, 0.3) !important;
+    border: 1px solid var(--glass-border) !important;
+}
+
+.payment-box.active {
+    border-color: var(--accent) !important;
+    background: rgba(15, 16, 19, 0.55) !important;
+}
+
+/* Slide arrows */
+.slide-arrow {
+    background: rgba(15, 16, 19, 0.4) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.slide-arrow:hover {
+    background: var(--accent) !important;
+    border-color: transparent !important;
+}
+

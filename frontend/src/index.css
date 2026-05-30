@@ -87,7 +87,7 @@ body {
 
 /* HEADER */
 .main-header {
-    background: rgba(7, 7, 9, 0.85);
+    background: #000000;
     backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border-color);
     position: sticky;
@@ -105,17 +105,21 @@ body {
 }
 
 .brand {
-    font-family: var(--font-heading);
-    font-size: 26px;
-    font-weight: 800;
-    color: var(--text-primary) !important;
-    letter-spacing: 1px;
     text-decoration: none;
     transition: var(--transition-fast);
+    display: block;
 }
 
-.brand:hover {
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+.brand-logo-img {
+    height: 70px !important;
+    width: auto !important;
+    object-fit: contain !important;
+    display: block !important;
+    transition: transform 0.2s ease !important;
+}
+
+.brand:hover .brand-logo-img {
+    transform: scale(1.05) !important;
 }
 
 .search-bar {
@@ -1953,32 +1957,13 @@ body {
 .footer-brand-logo {
     display: flex;
     align-items: center;
-    gap: 4px;
 }
 
-.footer-brand-logo .brand-text {
-    font-family: 'Orbitron', 'Syne', sans-serif;
-    font-size: clamp(32px, 4vw, 56px);
-    font-weight: 900;
-    color: var(--accent) !important;
-    letter-spacing: -2px;
-    text-transform: uppercase;
-}
-
-.footer-brand-logo .brand-badge {
-    font-family: 'Orbitron', 'Syne', sans-serif;
-    font-size: clamp(16px, 2vw, 28px);
-    font-weight: 900;
-    color: var(--accent) !important;
-    border: 3px solid var(--accent) !important;
-    border-radius: 50% !important;
-    width: clamp(28px, 3.5vw, 48px) !important;
-    height: clamp(28px, 3.5vw, 48px) !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 5px;
-    line-height: 1;
+.footer-logo-img {
+    height: clamp(60px, 8vw, 100px) !important;
+    width: auto !important;
+    object-fit: contain !important;
+    display: block !important;
 }
 
 .footer-tagline {
@@ -2092,7 +2077,6 @@ body {
     display: flex;
     flex-direction: column;
     gap: 14px;
-    border-left: 1px solid rgba(255, 255, 255, 0.15) !important;
     padding-left: clamp(20px, 2vw, 40px) !important;
     min-width: 150px;
 }
@@ -2177,7 +2161,6 @@ body {
     .footer-links-col {
         flex: 1;
         min-width: 120px;
-        border-left: 1px solid rgba(255, 255, 255, 0.15) !important;
         padding-left: 20px !important;
     }
 }
@@ -3415,7 +3398,7 @@ body {
 
 /* 1. Header Glassmorphism */
 .main-header {
-    background: rgba(7, 7, 9, 0.65) !important;
+    background: #000000 !important;
     backdrop-filter: var(--glass-blur) !important;
     -webkit-backdrop-filter: var(--glass-blur) !important;
     border-bottom: 1px solid var(--glass-border) !important;

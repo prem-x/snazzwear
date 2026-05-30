@@ -7,15 +7,12 @@ export default function Footer() {
         {/* Top Section: Brand + Tagline */}
         <div className="footer-top-row">
           <div className="footer-brand-logo">
-            <span className="brand-text">SNAZZWEAR</span><span className="brand-badge">S</span>
+            <img src="/logo.png" alt="SNAZZ WEAR" className="footer-logo-img" />
           </div>
           <div className="footer-tagline">
             WE DEFINE MODERN STREETWEAR FOR THE NEXT GENERATION
           </div>
         </div>
-
-        <hr className="footer-divider" />
-
         {/* Middle Section */}
         <div className="footer-middle-row">
           {/* Left Side: Subscription */}
@@ -55,8 +52,6 @@ export default function Footer() {
             </div>
           </div>
         </div>
-
-        <hr className="footer-divider" />
 
         {/* Bottom Section */}
         <div className="footer-bottom-row">

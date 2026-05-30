@@ -30,7 +30,7 @@
     <header class="main-header">
 
         <div class="header-top">
-            <a href="{% url 'home' %}" class="brand" style="text-decoration: none; color: inherit;">SNAZZ WEAR®</a>
+            <a href="{% url 'home' %}" class="brand" style="text-decoration: none; color: inherit;"><img src="{% static 'images/logo.png' %}" alt="SNAZZ WEAR" class="brand-logo-img"></a>
 
             <form action="{% url 'shop' %}" method="get" style="display: flex; flex: 1; max-width: 400px;">
                 <input type="text" name="q" placeholder="SEARCH FOR PRODUCTS" class="search-bar" style="width: 100%;">
@@ -84,14 +84,12 @@
         <!-- Top Section: Brand + Tagline -->
         <div class="footer-top-row">
             <div class="footer-brand-logo">
-                <span class="brand-text">SNAZZWEAR</span><span class="brand-badge">S</span>
+                <img src="{% static 'images/logo.png' %}" alt="SNAZZ WEAR" class="footer-logo-img">
             </div>
             <div class="footer-tagline">
                 WE DEFINE MODERN STREETWEAR FOR THE NEXT GENERATION
             </div>
         </div>
-
-        <hr class="footer-divider">
 
         <!-- Middle Section -->
         <div class="footer-middle-row">
@@ -132,8 +130,6 @@
                 </div>
             </div>
         </div>
-
-        <hr class="footer-divider">
 
         <!-- Bottom Section -->
         <div class="footer-bottom-row">

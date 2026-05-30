@@ -36,7 +36,7 @@ export default function Header({ onOpenAuth }) {
       {/* HEADER */}
       <header className="main-header">
         <div className="header-top">
-          <Link to="/" className="brand">SNAZZ WEAR®</Link>
+          <Link to="/" className="brand"><img src="/logo.png" alt="SNAZZ WEAR" className="brand-logo-img" /></Link>
 
           <form onSubmit={handleSearchSubmit} style={{ display: 'flex', flex: 1, maxWidth: '400px' }}>
             <input

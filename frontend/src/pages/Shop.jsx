@@ -56,50 +56,7 @@ export default function Shop() {
           </div>
         </div>
 
-        {/* Categories chips bar */}
-        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', paddingBottom: '10px' }}>
-          <button
-            onClick={() => handleCategorySelect('')}
-            style={{
-              padding: '8px 18px',
-              borderRadius: '20px',
-              border: '1px solid var(--border-color)',
-              background: categoryParam === '' ? 'var(--accent)' : 'var(--bg-secondary)',
-              color: 'var(--text-primary)',
-              fontFamily: 'var(--font-heading)',
-              fontSize: '11px',
-              fontWeight: '700',
-              cursor: 'pointer',
-              textTransform: 'uppercase',
-              letterSpacing: '0.5px',
-              transition: 'var(--transition-fast)',
-            }}
-          >
-            All Products
-          </button>
-          {categories.map((c) => (
-            <button
-              key={c.slug}
-              onClick={() => handleCategorySelect(c.slug)}
-              style={{
-                padding: '8px 18px',
-                borderRadius: '20px',
-                border: '1px solid var(--border-color)',
-                background: categoryParam === c.slug ? 'var(--accent)' : 'var(--bg-secondary)',
-                color: 'var(--text-primary)',
-                fontFamily: 'var(--font-heading)',
-                fontSize: '11px',
-                fontWeight: '700',
-                cursor: 'pointer',
-                textTransform: 'uppercase',
-                letterSpacing: '0.5px',
-                transition: 'var(--transition-fast)',
-              }}
-            >
-              {c.name}
-            </button>
-          ))}
-        </div>
+
 
         {query && (
           <div style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>

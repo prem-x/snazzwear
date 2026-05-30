@@ -11,9 +11,9 @@ const GRADIENT_INFOS = [
     textColor: '#070709'
   },
   {
-    gradient: 'linear-gradient(135deg, #ff5f36 0%, #fd2d5a 100%)', // Coral-Pink (Evora)
-    glowColor: 'rgba(253, 45, 90, 0.12)',
-    borderColor: 'rgba(253, 45, 90, 0.25)',
+    gradient: 'linear-gradient(135deg, #A8F046 0%, #3E4B3A 100%)', // Atlantis-Cabbage Pont (SNAZZWEAR)
+    glowColor: 'rgba(168, 240, 70, 0.12)',
+    borderColor: 'rgba(168, 240, 70, 0.25)',
     textColor: '#ffffff'
   },
   {

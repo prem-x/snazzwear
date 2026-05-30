@@ -121,7 +121,7 @@ export default function Checkout() {
               contact: phone,
             },
             theme: {
-              color: '#ff5f36',
+              color: '#A8F046',
             },
             modal: {
               ondismiss: function () {

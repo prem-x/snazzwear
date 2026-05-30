@@ -7,9 +7,9 @@ export default function Footer() {
         <div className="footer-top-section">
           {/* Left Block */}
           <div className="footer-left-block">
-            <h2 className="footer-brand-title">EVORA</h2>
+            <h2 className="footer-brand-title">SNAZZ</h2>
             <p className="footer-brand-desc">
-              Evora is a modern, elegant name that reflects premium quality and a strong brand identity.
+              SNAZZ is a modern, elegant name that reflects premium quality and a strong brand identity.
             </p>
             <form className="footer-subscribe-form" onSubmit={(e) => e.preventDefault()}>
               <input 
@@ -59,7 +59,7 @@ export default function Footer() {
         {/* Bottom section (above divider) */}
         <div className="footer-copyright-section">
           <p className="footer-copyright-text">
-            &copy; 2026 Evora. Engineered for the void.
+            &copy; 2026 SNAZZ. Engineered for the void.
           </p>
           <div className="footer-bottom-links">
             <a href="#">Terms</a>
@@ -72,7 +72,7 @@ export default function Footer() {
         <hr className="footer-divider-line" />
 
         <div className="footer-graphic-section">
-          <h1 className="footer-giant-bg-text">EVORA</h1>
+          <h1 className="footer-giant-bg-text">SNAZZ</h1>
         </div>
       </div>
     </footer>

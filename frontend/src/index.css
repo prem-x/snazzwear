@@ -1,15 +1,15 @@
 :root {
-    --bg-primary: #070709;
-    --bg-secondary: #0f1013;
-    --bg-tertiary: #17181c;
-    --accent: #ff5f36;
-    --accent-glow: rgba(255, 95, 54, 0.15);
-    --accent-gradient: linear-gradient(135deg, #ff5f36 0%, #ff007f 100%);
+    --bg-primary: #2C3629;
+    --bg-secondary: #222920;
+    --bg-tertiary: #191f18;
+    --accent: #A8F046;
+    --accent-glow: rgba(168, 240, 70, 0.15);
+    --accent-gradient: linear-gradient(135deg, #A8F046 0%, #3E4B3A 100%);
     --text-primary: #ffffff;
-    --text-secondary: #90929a;
-    --text-muted: #5e6068;
-    --border-color: rgba(255, 255, 255, 0.08);
-    --border-focus: rgba(255, 95, 54, 0.5);
+    --text-secondary: #cdd3ca;
+    --text-muted: #8f9a8c;
+    --border-color: rgba(255, 255, 255, 0.12);
+    --border-focus: rgba(168, 240, 70, 0.5);
     --font-heading: 'Outfit', 'Orbitron', sans-serif;
     --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-display: 'Syne', sans-serif;
@@ -17,10 +17,10 @@
     --transition-fast: all 0.2s ease;
     
     /* GLASSMORPHISM DESIGN SYSTEM */
-    --glass-bg: rgba(15, 16, 19, 0.45);
-    --glass-bg-hover: rgba(25, 26, 30, 0.55);
-    --glass-border: rgba(255, 255, 255, 0.05);
-    --glass-border-hover: rgba(255, 255, 255, 0.15);
+    --glass-bg: rgba(34, 41, 32, 0.45);
+    --glass-bg-hover: rgba(52, 63, 49, 0.55);
+    --glass-border: rgba(168, 240, 70, 0.08);
+    --glass-border-hover: rgba(168, 240, 70, 0.2);
     --glass-blur: blur(16px);
     --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.05);
 }
@@ -207,7 +207,7 @@ body {
     align-items: center;
     justify-content: center;
     font-family: var(--font-body);
-    box-shadow: 0 2px 8px rgba(255, 95, 54, 0.4);
+    box-shadow: 0 2px 8px rgba(168, 240, 70, 0.4);
 }
 
 .header-bottom {
@@ -323,7 +323,7 @@ body {
 
 .btn-primary:hover {
     color: var(--text-primary);
-    box-shadow: 0 4px 20px rgba(255, 95, 54, 0.35);
+    box-shadow: 0 4px 20px rgba(168, 240, 70, 0.35);
     transform: translateY(-3px);
 }
 
@@ -732,7 +732,7 @@ body {
     bottom: 0;
     left: 0;
     width: 100%;
-    background: rgba(255, 95, 54, 0.95);
+    background: rgba(168, 240, 70, 0.95);
     color: white;
     text-align: center;
     padding: 16px 0;
@@ -1248,7 +1248,7 @@ body {
 }
 
 .pd-buy-btn:hover {
-    box-shadow: 0 4px 25px rgba(255, 95, 54, 0.45);
+    box-shadow: 0 4px 25px rgba(168, 240, 70, 0.45);
     transform: translateY(-2px);
 }
 
@@ -3430,7 +3430,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #ff007f 0%, #ff5f36 100%);
+    background: linear-gradient(135deg, #3E4B3A 0%, #A8F046 100%);
     opacity: 0;
     z-index: -1;
     transition: opacity 0.4s ease;
@@ -3438,7 +3438,7 @@ body {
 
 .auth-glow-btn:hover {
     transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 8px 25px rgba(255, 95, 54, 0.45);
+    box-shadow: 0 8px 25px rgba(168, 240, 70, 0.45);
 }
 
 .auth-glow-btn:hover::before {
@@ -3449,7 +3449,7 @@ body {
     transform: translateY(-1px) scale(0.99);
 }
 
-/* FOOTER OVERRIDES REMOVED TO SUPPORT THE NEW EVORA DESIGN */
+/* FOOTER OVERRIDES REMOVED TO SUPPORT THE NEW SNAZZ DESIGN */
 
 /* FLUID GLASSMORPHISM OVERRIDES */
 
@@ -3476,8 +3476,8 @@ body {
 
 .product-card:hover {
     background: var(--glass-bg-hover) !important;
-    border-color: rgba(255, 95, 54, 0.25) !important;
-    box-shadow: 0 12px 40px rgba(255, 95, 54, 0.08), var(--glass-shadow) !important;
+    border-color: rgba(168, 240, 70, 0.25) !important;
+    box-shadow: 0 12px 40px rgba(168, 240, 70, 0.08), var(--glass-shadow) !important;
     transform: translateY(-5px) scale(1.01) !important;
 }
 

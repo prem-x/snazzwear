@@ -3581,19 +3581,37 @@ body {
     align-items: flex-start;
     min-height: 85vh;
     padding: 80px 5%;
-    background: #ffffff;
+    background: var(--bg-primary);
     position: relative;
     overflow: hidden;
     gap: 60px;
 }
 
-/* Background blur decorations disabled for light theme */
+/* Background blur decorations enabled for premium cyber dark theme */
 .profile-page-wrapper::before {
-    display: none !important;
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(168, 240, 70, 0.05) 0%, transparent 70%);
+    top: -200px;
+    left: -200px;
+    z-index: 1;
+    pointer-events: none;
+    display: block !important;
 }
 
 .profile-page-wrapper::after {
-    display: none !important;
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(221, 54, 255, 0.03) 0%, transparent 70%);
+    bottom: -200px;
+    right: -200px;
+    z-index: 1;
+    pointer-events: none;
+    display: block !important;
 }
 
 /* 3D Card Container */
@@ -3633,25 +3651,25 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    background: rgba(18, 20, 24, 0.65);
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-    color: #ffffff;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    box-shadow: var(--glass-shadow);
+    color: var(--text-primary);
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .profile-card-front:hover,
 .profile-card-back:hover {
-    border-color: rgba(218, 251, 46, 0.25);
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 20px rgba(218, 251, 46, 0.05);
+    border-color: var(--glass-border-hover);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 20px rgba(168, 240, 70, 0.1);
 }
 
 /* Back Face is rotated initially */
 .profile-card-back {
     transform: rotateY(180deg);
-    background: rgba(14, 16, 20, 0.8);
+    background: rgba(8, 11, 9, 0.85);
 }
 
 /* Front card layout elements */
@@ -3672,45 +3690,45 @@ body {
 }
 
 .profile-username {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--font-heading);
     font-size: 24px;
     font-weight: 800;
     margin: 10px 0 4px;
-    color: #ffffff;
+    color: var(--text-primary);
     text-align: center;
     letter-spacing: -0.5px;
 }
 
 .profile-email {
     font-size: 14px;
-    color: #a0a0ab;
+    color: var(--text-muted);
     margin: 0 0 20px 0;
     font-weight: 500;
 }
 
 .profile-badge-pill {
-    background: rgba(218, 251, 46, 0.07);
-    border: 1px solid rgba(218, 251, 46, 0.2);
-    color: #dafb2e;
+    background: rgba(168, 240, 70, 0.07);
+    border: 1px solid rgba(168, 240, 70, 0.2);
+    color: var(--accent);
     padding: 8px 16px;
     border-radius: 20px;
     font-size: 12px;
     font-weight: 800;
     letter-spacing: 1.5px;
     text-transform: uppercase;
-    box-shadow: 0 0 15px rgba(218, 251, 46, 0.03);
+    box-shadow: 0 0 15px rgba(168, 240, 70, 0.03);
 }
 
 /* Back card details list */
 .profile-stats-title {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--font-heading);
     font-size: 20px;
     font-weight: 800;
-    color: #ffffff;
+    color: var(--text-primary);
     margin: 0 0 25px 0;
     text-transform: uppercase;
     letter-spacing: 1px;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 2px solid var(--border-color);
     padding-bottom: 10px;
     width: 100%;
     text-align: center;
@@ -3731,7 +3749,7 @@ body {
     align-items: center;
     padding: 12px 18px;
     background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-color);
     border-radius: 12px;
     transition: background 0.2s ease;
 }
@@ -3743,7 +3761,7 @@ body {
 .profile-stat-label {
     font-size: 13px;
     font-weight: 600;
-    color: #a0a0ab;
+    color: var(--text-muted);
     display: flex;
     align-items: center;
     gap: 8px;
@@ -3752,7 +3770,7 @@ body {
 .profile-stat-value {
     font-size: 15px;
     font-weight: 800;
-    color: #ffffff;
+    color: var(--text-primary);
 }
 
 /* Action button styles */
@@ -3774,8 +3792,8 @@ body {
 }
 
 .profile-action-btn.primary {
-    background: #ffffff;
-    color: #000000;
+    background: var(--text-primary);
+    color: var(--bg-primary);
 }
 
 .profile-action-btn.primary:hover {
@@ -3784,7 +3802,7 @@ body {
 }
 
 .profile-action-btn.accent {
-    background: #dafb2e;
+    background: var(--accent);
     color: #000000;
 }
 
@@ -3808,7 +3826,7 @@ body {
 
 .profile-flip-indicator {
     font-size: 12px;
-    color: #71717a;
+    color: var(--text-muted);
     display: flex;
     align-items: center;
     gap: 4px;
@@ -3821,22 +3839,22 @@ body {
     display: flex;
     width: 100%;
     max-width: 1200px;
-    background: #f5f6f8 !important;
-    border: 1px solid #e5e7eb !important;
+    background: var(--bg-secondary) !important;
+    border: 1px solid var(--border-color) !important;
     border-radius: 32px;
     overflow: hidden;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
+    box-shadow: var(--glass-shadow);
     z-index: 10;
 }
 
 .account-sidebar {
     flex: 0 0 280px;
-    border-right: 1px solid #e5e7eb !important;
+    border-right: 1px solid var(--border-color) !important;
     padding: 35px 20px;
     display: flex;
     flex-direction: column;
     gap: 8px;
-    background: transparent;
+    background: rgba(0, 0, 0, 0.2);
 }
 
 .account-sidebar-btn {
@@ -3848,7 +3866,8 @@ body {
     border-radius: 14px;
     background: transparent !important;
     border: none !important;
-    color: #4b5563 !important;
+    color: var(--text-muted) !important;
+    font-family: var(--font-heading) !important;
     font-size: 14px;
     font-weight: 700;
     cursor: pointer;
@@ -3862,8 +3881,8 @@ body {
 }
 
 .account-sidebar-btn:hover {
-    color: #000000 !important;
-    background: rgba(0, 0, 0, 0.03) !important;
+    color: var(--accent) !important;
+    background: rgba(168, 240, 70, 0.05) !important;
     transform: translateX(4px);
 }
 
@@ -3872,9 +3891,9 @@ body {
 }
 
 .account-sidebar-btn.active {
-    color: #000000 !important;
-    background: #eaeaea !important;
-    border-left: 4px solid #000000 !important;
+    color: var(--accent) !important;
+    background: rgba(168, 240, 70, 0.08) !important;
+    border-left: 4px solid var(--accent) !important;
     font-weight: 800;
     border-top-left-radius: 0 !important;
     border-bottom-left-radius: 0 !important;
@@ -3885,7 +3904,8 @@ body {
     padding: 45px 40px;
     max-height: 800px;
     overflow-y: auto;
-    color: #000000;
+    color: var(--text-primary) !important;
+    background: transparent;
 }
 
 /* Scrollbar styling for content panel */
@@ -3896,44 +3916,47 @@ body {
     background: transparent;
 }
 .account-content-pane::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.1);
+    background: var(--border-color);
     border-radius: 10px;
 }
 
 /* Order card design matching the screenshot */
 .account-order-card {
-    background: #ffffff !important;
-    border: 1px solid #e5e7eb !important;
+    background: var(--bg-tertiary) !important;
+    border: 1px solid var(--border-color) !important;
     border-radius: 16px;
     overflow: hidden;
     margin-bottom: 25px;
     display: flex;
     flex-direction: column;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.01);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
 .account-order-card:hover {
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.03);
+    border-color: rgba(168, 240, 70, 0.25) !important;
+    box-shadow: 0 8px 30px rgba(168, 240, 70, 0.05);
 }
 
 .account-order-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid var(--border-color);
     padding: 18px 24px;
     font-size: 14px;
     font-weight: 700;
-    color: #1f2937;
+    color: var(--text-primary);
 }
 
 .account-order-id {
-    color: #000000;
+    color: var(--text-primary);
+    font-family: var(--font-heading);
+    letter-spacing: 0.5px;
 }
 
 .account-order-date {
-    color: #4b5563;
+    color: var(--text-secondary);
 }
 
 .account-order-item-row {
@@ -3948,8 +3971,8 @@ body {
     height: 120px;
     object-fit: cover;
     border-radius: 8px;
-    border: 1px solid #e5e7eb;
-    background: #f3f4f6;
+    border: 1px solid var(--border-color);
+    background: var(--bg-secondary);
 }
 
 .account-order-item-info {
@@ -3957,24 +3980,26 @@ body {
     display: flex;
     flex-direction: column;
     gap: 6px;
-    color: #000000;
+    color: var(--text-secondary);
 }
 
 .account-order-item-name {
     font-size: 15px;
     font-weight: 700;
-    color: #000000;
+    color: var(--text-primary);
+    font-family: var(--font-heading);
 }
 
 .account-order-item-price {
     font-size: 14px;
     font-weight: 600;
-    color: #374151;
+    color: var(--accent);
+    font-family: var(--font-heading);
 }
 
 .account-order-item-details {
     font-size: 13px;
-    color: #6b7280;
+    color: var(--text-muted);
 }
 
 .account-order-total-block {
@@ -3987,12 +4012,13 @@ body {
 .account-order-total {
     font-size: 15px;
     font-weight: 700;
-    color: #000000;
+    color: var(--text-primary);
+    font-family: var(--font-heading);
 }
 
 .account-order-tax-notice {
     font-size: 10px;
-    color: #6b7280;
+    color: var(--text-muted);
     font-weight: 700;
 }
 
@@ -4002,8 +4028,8 @@ body {
     gap: 20px;
     align-items: flex-start;
     padding: 20px 24px;
-    background: #ffffff;
-    border-top: 1px solid #e5e7eb;
+    background: rgba(0, 0, 0, 0.1);
+    border-top: 1px solid var(--border-color);
 }
 
 .account-order-footer-details {
@@ -4012,13 +4038,13 @@ body {
     gap: 12px;
     flex: 1;
     font-size: 13px;
-    color: #1f2937;
+    color: var(--text-secondary);
     font-weight: 700;
 }
 
 .account-order-footer-details .address-text {
-    font-weight: 600;
-    color: #4b5563;
+    font-weight: 500;
+    color: var(--text-muted);
     font-size: 12px;
 }
 
@@ -4030,11 +4056,11 @@ body {
 }
 
 .account-order-btn {
-    background: #000000 !important;
-    color: #ffffff !important;
-    border: 1px solid #000000 !important;
+    background: var(--accent) !important;
+    color: #000000 !important;
+    border: 1px solid var(--accent) !important;
     padding: 10px 16px;
-    border-radius: 0px;
+    border-radius: 4px !important;
     font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
@@ -4044,39 +4070,41 @@ body {
     outline: none;
     width: 170px;
     text-align: center;
+    font-family: var(--font-heading) !important;
 }
 
 .account-order-btn:hover {
-    background: #1f2937 !important;
-    border-color: #1f2937 !important;
+    background: transparent !important;
+    color: var(--accent) !important;
 }
 
 /* Wallet and Loyalty styles */
 .loyalty-points-card,
 .wallet-balance-card {
-    background: #ffffff !important;
-    border: 1px solid #e5e7eb !important;
+    background: var(--bg-tertiary) !important;
+    border: 1px solid var(--border-color) !important;
     border-radius: 16px;
     padding: 24px;
     margin-bottom: 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .points-value,
 .wallet-val {
     font-size: 30px;
     font-weight: 700;
-    color: #000000 !important;
+    color: var(--accent) !important;
+    font-family: var(--font-heading);
 }
 
 /* Color picker dot styles in Account Details tab */
 .avatar-color-picker-label {
     font-size: 13px;
     font-weight: 700;
-    color: #4b5563;
+    color: var(--text-secondary);
     margin-bottom: 10px;
     display: block;
 }
@@ -4102,39 +4130,40 @@ body {
 }
 
 .avatar-color-picker-dot.selected {
-    border-color: #000000;
+    border-color: var(--accent);
     transform: scale(1.1);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px var(--accent-glow);
 }
 
 /* Address items */
 .address-item-box {
-    background: #ffffff !important;
-    border: 1px solid #e5e7eb !important;
+    background: var(--bg-tertiary) !important;
+    border: 1px solid var(--border-color) !important;
     border-radius: 12px;
     padding: 20px;
     margin-bottom: 16px;
     position: relative;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.01);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 .address-item-tag {
     font-size: 11px;
     font-weight: 800;
-    color: #000000 !important;
-    background: #f3f4f6 !important;
-    border: 1px solid #cbd5e1 !important;
+    color: var(--accent) !important;
+    background: rgba(168, 240, 70, 0.08) !important;
+    border: 1px solid rgba(168, 240, 70, 0.2) !important;
     padding: 3px 8px;
     border-radius: 6px;
     display: inline-block;
     margin-bottom: 8px;
     text-transform: uppercase;
+    font-family: var(--font-heading);
 }
 
 .address-item-details {
     font-size: 14px;
     line-height: 1.5;
-    color: #374151 !important;
+    color: var(--text-secondary) !important;
 }
 
 .address-item-actions {
@@ -4158,21 +4187,22 @@ body {
 
 /* Light Theme Inputs */
 .account-content-pane .input-box {
-    background: #ffffff !important;
-    border: 1px solid #cbd5e1 !important;
-    color: #000000 !important;
+    background: var(--bg-tertiary) !important;
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-primary) !important;
     border-radius: 8px;
     padding: 12px 16px;
     font-size: 14px;
     width: 100%;
     outline: none;
     transition: border-color 0.2s ease;
+    font-family: var(--font-body);
 }
 .account-content-pane .input-box::placeholder {
-    color: #9ca3af !important;
+    color: var(--text-muted) !important;
 }
 .account-content-pane .input-box:focus {
-    border-color: #000000 !important;
+    border-color: var(--accent) !important;
 }
 .account-content-pane select.input-box {
     cursor: pointer;
@@ -4196,7 +4226,7 @@ body {
         flex: auto !important;
         width: 100% !important;
         border-right: none !important;
-        border-bottom: 1px solid #e5e7eb !important;
+        border-bottom: 1px solid var(--border-color) !important;
         flex-direction: row !important;
         overflow-x: auto !important;
         padding: 18px !important;
@@ -4212,9 +4242,9 @@ body {
     
     .account-sidebar-btn.active {
         border-left: none !important;
-        border-bottom: 3px solid #000000 !important;
+        border-bottom: 3px solid var(--accent) !important;
         border-radius: 0px !important;
-        background: #eaeaea !important;
+        background: rgba(168, 240, 70, 0.08) !important;
     }
     
     .account-content-pane {

@@ -274,7 +274,7 @@ export default function Profile() {
           {activeTab === 'orders' && (
             <div>
               {orders.length === 0 ? (
-                <p style={{ color: '#6b7280', fontSize: '14px' }}>You haven't placed any orders yet.</p>
+                <p style={{ color: 'var(--text-muted)', fontSize: '14px' }}>You haven't placed any orders yet.</p>
               ) : (
                 orders.map((order) => (
                   <div className="account-order-card" key={order.id}>
@@ -299,7 +299,7 @@ export default function Profile() {
                     <div className="account-order-footer-row">
                       <div className="account-order-footer-details">
                         <span>
-                          PAYMENT STATUS: <span style={{ color: order.paymentStatus === 'PAID' ? '#00b894' : '#ffb800' }}>{order.paymentStatus}</span>
+                          PAYMENT STATUS: <span style={{ color: order.paymentStatus === 'PAID' ? '#4ade80' : '#ffb800' }}>{order.paymentStatus}</span>
                         </span>
                         <span style={{ display: 'flex', alignItems: 'center' }}>
                           DELIVERY STATUS: <span style={{ textTransform: 'uppercase', marginRight: '6px' }}>{order.deliveryStatus}</span>
@@ -308,7 +308,7 @@ export default function Profile() {
                             alignItems: 'center', 
                             justifyContent: 'center',
                             background: '#4ade80', 
-                            color: '#ffffff', 
+                            color: '#000000', 
                             borderRadius: '4px', 
                             width: '18px', 
                             height: '18px', 
@@ -334,10 +334,10 @@ export default function Profile() {
           {/* TAB 2: SHIPPING ADDRESSES */}
           {activeTab === 'address' && (
             <div>
-              <h3 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '25px', fontFamily: "'Outfit', sans-serif" }}>Shipping Addresses</h3>
+              <h3 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '25px', fontFamily: 'var(--font-heading)', color: 'var(--text-primary)' }}>Shipping Addresses</h3>
 
               {addressSuccess && (
-                <div style={{ color: '#000000', fontSize: '14px', fontWeight: '700', marginBottom: '15px', padding: '10px 14px', borderRadius: '8px', background: 'rgba(0, 0, 0, 0.05)', border: '1px solid rgba(0, 0, 0, 0.1)' }}>
+                <div style={{ color: 'var(--accent)', fontSize: '14px', fontWeight: '700', marginBottom: '15px', padding: '10px 14px', borderRadius: '8px', background: 'rgba(168, 240, 70, 0.05)', border: '1px solid rgba(168, 240, 70, 0.15)' }}>
                   {addressSuccess}
                 </div>
               )}
@@ -354,8 +354,8 @@ export default function Profile() {
                 ))}
               </div>
 
-              <hr style={{ borderColor: '#cbd5e1', margin: '25px 0' }} />
-              <h4 style={{ fontSize: '15px', fontWeight: '800', marginBottom: '15px', color: '#000000' }}>Add New Address</h4>
+              <hr style={{ borderColor: 'var(--border-color)', margin: '25px 0' }} />
+              <h4 style={{ fontSize: '15px', fontWeight: '800', marginBottom: '15px', color: 'var(--text-primary)', fontFamily: 'var(--font-heading)' }}>Add New Address</h4>
               <form onSubmit={handleAddAddress} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
                 <select className="input-box" value={addressTag} onChange={(e) => setAddressTag(e.target.value)}>
                     <option value="Home">Home</option><option value="Office">Office</option><option value="Other">Other</option>
@@ -369,7 +369,7 @@ export default function Profile() {
                     <input type="text" required className="input-box" placeholder="ZIP Code" value={zip} onChange={(e) => setZip(e.target.value)} />
                     <input type="text" required className="input-box" placeholder="Country" value={country} onChange={(e) => setCountry(e.target.value)} />
                 </div>
-                <button type="submit" className="profile-action-btn accent" style={{ background: '#000000', color: '#ffffff', borderRadius: '4px', fontWeight: '700' }}>Save Address</button>
+                <button type="submit" className="profile-action-btn accent" style={{ background: 'var(--accent)', color: '#000000', borderRadius: '4px', fontWeight: '700' }}>Save Address</button>
               </form>
             </div>
           )}
@@ -377,10 +377,10 @@ export default function Profile() {
           {/* TAB 3: WALLET DETAILS */}
           {activeTab === 'wallet' && (
             <div>
-              <h3 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '25px', fontFamily: "'Outfit', sans-serif" }}>Wallet Details</h3>
+              <h3 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '25px', fontFamily: 'var(--font-heading)', color: 'var(--text-primary)' }}>Wallet Details</h3>
               <div className="wallet-balance-card">
                 <div>
-                  <span style={{ fontSize: '13px', color: '#4b5563', fontWeight: '700', display: 'block', textTransform: 'uppercase', marginBottom: '8px' }}>
+                  <span style={{ fontSize: '13px', color: 'var(--text-muted)', fontWeight: '700', display: 'block', textTransform: 'uppercase', marginBottom: '8px' }}>
                     Snazz Cash Wallet Balance
                   </span>
                   <span className="wallet-val">{walletBalance}</span>
@@ -388,15 +388,15 @@ export default function Profile() {
                 <button className="account-order-btn" style={{ padding: '12px 24px', borderRadius: '4px', width: 'auto' }} onClick={() => alert('Gift card features are currently mocked.')}>Redeem Gift Card</button>
               </div>
 
-              <h4 style={{ fontSize: '15px', fontWeight: '800', marginBottom: '15px' }}>Recent Wallet Transactions</h4>
+              <h4 style={{ fontSize: '15px', fontWeight: '800', marginBottom: '15px', color: 'var(--text-primary)', fontFamily: 'var(--font-heading)' }}>Recent Wallet Transactions</h4>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
                 {transactions.map((tx) => (
-                  <div key={tx.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#ffffff', padding: '16px 20px', borderRadius: '12px', border: '1px solid #e5e7eb' }}>
+                  <div key={tx.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--bg-secondary)', padding: '16px 20px', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
                     <div>
-                      <span style={{ fontSize: '14px', fontWeight: '700', display: 'block' }}>{tx.desc}</span>
-                      <small style={{ color: '#6b7280' }}>{tx.date} | ID: {tx.id}</small>
+                      <span style={{ fontSize: '14px', fontWeight: '700', display: 'block', color: 'var(--text-primary)' }}>{tx.desc}</span>
+                      <small style={{ color: 'var(--text-muted)' }}>{tx.date} | ID: {tx.id}</small>
                     </div>
-                    <span style={{ color: tx.type === 'Refund' ? '#00b894' : '#000000', fontWeight: '800', fontSize: '15px' }}>+{tx.amount}</span>
+                    <span style={{ color: tx.type === 'Refund' ? '#00b894' : 'var(--text-primary)', fontWeight: '800', fontSize: '15px' }}>+{tx.amount}</span>
                   </div>
                 ))}
               </div>
@@ -406,33 +406,33 @@ export default function Profile() {
           {/* TAB 4: LOYALTY REWARDS */}
           {activeTab === 'loyalty' && (
             <div>
-              <h3 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '25px', fontFamily: "'Outfit', sans-serif" }}>Loyalty Rewards</h3>
+              <h3 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '25px', fontFamily: 'var(--font-heading)', color: 'var(--text-primary)' }}>Loyalty Rewards</h3>
               <div className="loyalty-points-card">
                 <div>
-                  <span style={{ fontSize: '13px', color: '#4b5563', fontWeight: '700', display: 'block', textTransform: 'uppercase', marginBottom: '8px' }}>
+                  <span style={{ fontSize: '13px', color: 'var(--text-muted)', fontWeight: '700', display: 'block', textTransform: 'uppercase', marginBottom: '8px' }}>
                     Current Loyalty Points Balance
                   </span>
                   <span className="points-value">{loyaltyPoints} PTS</span>
                 </div>
               </div>
 
-              <div style={{ background: '#ffffff', border: '1px solid #e5e7eb', padding: '20px', borderRadius: '16px', marginBottom: '30px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', fontWeight: '700', marginBottom: '10px' }}>
+              <div style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', padding: '20px', borderRadius: '16px', marginBottom: '30px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', fontWeight: '700', marginBottom: '10px', color: 'var(--text-secondary)' }}>
                   <span>Progress to Next Reward (500 pts)</span>
-                  <span style={{ color: '#000000' }}>90% Completed</span>
+                  <span style={{ color: 'var(--text-primary)' }}>90% Completed</span>
                 </div>
-                <div style={{ width: '100%', height: '8px', background: '#f3f4f6', borderRadius: '10px', overflow: 'hidden' }}>
-                  <div style={{ width: '90%', height: '100%', background: '#000000', borderRadius: '10px' }} />
+                <div style={{ width: '100%', height: '8px', background: 'var(--bg-tertiary)', borderRadius: '10px', overflow: 'hidden' }}>
+                  <div style={{ width: '90%', height: '100%', background: 'var(--accent)', borderRadius: '10px' }} />
                 </div>
               </div>
 
-              <h4 style={{ fontSize: '15px', fontWeight: '800', marginBottom: '15px' }}>Active Promo Coupons</h4>
+              <h4 style={{ fontSize: '15px', fontWeight: '800', marginBottom: '15px', color: 'var(--text-primary)', fontFamily: 'var(--font-heading)' }}>Active Promo Coupons</h4>
               <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap' }}>
                 {activeCoupons.map((code) => (
-                  <div key={code} style={{ border: '1px dashed rgba(0, 0, 0, 0.4)', background: '#f9fafb', padding: '12px 20px', borderRadius: '10px', display: 'inline-flex', alignItems: 'center', gap: '10px' }}>
-                    <span style={{ fontFamily: 'monospace', fontWeight: '800', color: '#000000', fontSize: '15px' }}>{code}</span>
+                  <div key={code} style={{ border: '1px dashed var(--border-color)', background: 'var(--bg-tertiary)', padding: '12px 20px', borderRadius: '10px', display: 'inline-flex', alignItems: 'center', gap: '10px' }}>
+                    <span style={{ fontFamily: 'monospace', fontWeight: '800', color: 'var(--accent)', fontSize: '15px' }}>{code}</span>
                     <button 
-                      style={{ background: '#000000', border: 'none', color: '#ffffff', fontSize: '10px', fontWeight: '800', padding: '3px 8px', borderRadius: '4px', cursor: 'pointer' }}
+                      style={{ background: 'var(--accent)', border: 'none', color: '#000000', fontSize: '10px', fontWeight: '800', padding: '3px 8px', borderRadius: '4px', cursor: 'pointer' }}
                       onClick={() => { navigator.clipboard.writeText(code); alert('Coupon copied!'); }}
                     >
                       COPY
@@ -446,7 +446,7 @@ export default function Profile() {
           {/* TAB 5: ACCOUNT DETAILS */}
           {activeTab === 'edit' && (
             <div>
-              <h3 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '25px', fontFamily: "'Outfit', sans-serif" }}>Account details</h3>
+              <h3 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '25px', fontFamily: 'var(--font-heading)', color: 'var(--text-primary)' }}>Account details</h3>
               
               <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px 0' }}>
                 <div className="profile-card-container" onClick={() => setIsFlipped(!isFlipped)} style={{ width: '320px', height: '460px' }}>

@@ -170,16 +170,7 @@ export default function AuthModal({ isOpen, onClose }) {
                       <div className="auth-input-group-stacked">
                         <label>Mobile Number</label>
                         <div className="auth-phone-input-row">
-                          <select 
-                            value={phonePrefix} 
-                            onChange={(e) => setPhonePrefix(e.target.value)} 
-                            className="auth-phone-prefix"
-                          >
-                            <option value="+91">IN +91</option>
-                            <option value="+1">US +1</option>
-                            <option value="+44">UK +44</option>
-                            <option value="+971">AE +971</option>
-                          </select>
+                          <span className="auth-phone-prefix">+91</span>
                           <div className="auth-phone-divider"></div>
                           <input 
                             type="tel" 

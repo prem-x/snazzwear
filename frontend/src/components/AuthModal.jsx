@@ -3,71 +3,53 @@ import { useAuth } from '../contexts/AuthContext';
 
 export default function AuthModal({ isOpen, onClose }) {
   const { login, signup } = useAuth();
-  const [step, setStep] = useState(1); // 1 = Phone, 2 = OTP
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [phonePrefix, setPhonePrefix] = useState('+91');
-  const [otp, setOtp] = useState('');
+  const [isLogin, setIsLogin] = useState(true);
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
 
   if (!isOpen) return null;
 
-  const handlePhoneSubmit = (e) => {
-    e.preventDefault();
-    setError('');
-    if (phoneNumber.length < 8) {
-      setError('Please enter a valid mobile number');
-      return;
-    }
-    setLoading(true);
-    // Mock sending OTP
-    setTimeout(() => {
-      setLoading(false);
-      setStep(2);
-    }, 800);
-  };
-
-  const handleVerifyOtp = async (e) => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setLoading(true);
-
-    if (otp.length < 4) {
-      setError('Please enter a valid OTP');
-      setLoading(false);
-      return;
-    }
-
-    const username = phonePrefix + phoneNumber;
-    const dummyPassword = 'defaultOTPPass123!';
-    
-    // Attempt login
-    let res = await login(username, dummyPassword);
-    
-    if (!res.success) {
-      // If user does not exist, sign them up
-      const email = `${username}@gmail.com`;
-      const signupRes = await signup(username, email, dummyPassword);
-      if (signupRes.success) {
-        res = { success: true };
-      } else {
-        res = signupRes;
-      }
-    }
-
+    const res = await login(username, password);
     setLoading(false);
     if (res.success) {
       setSuccess(true);
       setTimeout(() => {
         setSuccess(false);
-        setPhoneNumber('');
-        setOtp('');
-        setStep(1);
+        setUsername('');
+        setPassword('');
         onClose();
-      }, 2000);
+      }, 1500);
     } else {
-      setError(res.message || 'Authentication failed');
+      setError(res.message || 'Invalid username or password');
+    }
+  };
+
+  const handleSignupSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+    const res = await signup(username, email, password);
+    setLoading(false);
+    if (res.success) {
+      setSuccess(true);
+      setTimeout(() => {
+        setSuccess(false);
+        setUsername('');
+        setEmail('');
+        setPassword('');
+        onClose();
+      }, 1500);
+    } else {
+      setError(res.message || 'Signup failed. Please try again.');
     }
   };
 
@@ -111,47 +93,54 @@ export default function AuthModal({ isOpen, onClose }) {
                   </svg>
                 </div>
                 <h3 style={{ fontSize: '22px', fontWeight: '800', lineHeight: '1.4', marginBottom: '15px', color: 'var(--text-primary)', fontFamily: "var(--font-heading)" }}>
-                  🎉 CONGRATULATIONS!<br />YOU ARE LOGGED IN!
+                  🎉 CONGRATULATIONS!<br />SUCCESSFULLY AUTHENTICATED!
                 </h3>
               </div>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'center' }}>
                 
-                <h3 className="auth-card-title-main">Login/Signup</h3>
-                
-                {step === 1 ? (
-                  <div className="auth-form-step-fade">
-                    <p style={{ fontSize: '14px', color: 'var(--text-muted)', marginBottom: '25px', textAlign: 'center', fontWeight: '500' }}>Enter Mobile Number</p>
+                <h3 className="auth-card-title-main">{isLogin ? 'Login' : 'Sign Up'}</h3>
+                <p style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '20px', textAlign: 'center', fontWeight: '500' }}>
+                  {isLogin ? 'Enter Snazz Wear credentials' : 'Create your Snazz Wear account'}
+                </p>
 
-                    {error && (
-                      <div className="auth-error-container">
-                        {error}
+                {error && (
+                  <div className="auth-error-container">
+                    {error}
+                  </div>
+                )}
+
+                {isLogin ? (
+                  <div key="login" className="auth-form-step-fade">
+                    <form onSubmit={handleLoginSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+                      <div className="auth-input-group-stacked">
+                        <label>Username</label>
+                        <input 
+                          type="text" 
+                          placeholder="Enter username" 
+                          value={username}
+                          onChange={(e) => setUsername(e.target.value)}
+                          className="auth-input-field"
+                          required
+                        />
                       </div>
-                    )}
 
-                    <form onSubmit={handlePhoneSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
-                      <div className="auth-input-container">
-                        <div style={{ display: 'flex', alignItems: 'center', position: 'relative', borderRight: '1px solid var(--border-color)', background: 'transparent' }}>
-                          <select 
-                            value={phonePrefix}
-                            onChange={(e) => setPhonePrefix(e.target.value)}
-                            className="auth-select-prefix"
+                      <div className="auth-input-group-stacked">
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                          <label style={{ margin: 0 }}>Password</label>
+                          <button 
+                            type="button" 
+                            className="auth-pwd-toggle"
+                            onClick={() => setShowPassword(!showPassword)}
                           >
-                            <option value="+91" style={{ background: 'var(--bg-tertiary)', color: 'var(--text-primary)' }}>IN +91</option>
-                            <option value="+1" style={{ background: 'var(--bg-tertiary)', color: 'var(--text-primary)' }}>US +1</option>
-                            <option value="+44" style={{ background: 'var(--bg-tertiary)', color: 'var(--text-primary)' }}>GB +44</option>
-                          </select>
-                          <span className="auth-select-arrow-icon">
-                            <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                              <path d="m1 1 4 4 4-4"/>
-                            </svg>
-                          </span>
+                            <span>{showPassword ? 'HIDE' : 'SHOW'}</span>
+                          </button>
                         </div>
                         <input 
-                          type="tel" 
-                          placeholder="Enter Mobile Number" 
-                          value={phoneNumber}
-                          onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, ''))}
+                          type={showPassword ? 'text' : 'password'} 
+                          placeholder="Enter password" 
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
                           className="auth-input-field"
                           required
                         />
@@ -162,48 +151,90 @@ export default function AuthModal({ isOpen, onClose }) {
                         disabled={loading}
                         className="auth-submit-btn-animated"
                       >
-                        {loading ? 'Please wait...' : 'PROCEED'}
+                        {loading ? 'Logging in...' : 'LOG IN'}
                       </button>
                     </form>
+
+                    <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '13px', color: 'var(--text-muted)' }}>
+                      Don't have an account?{' '}
+                      <button 
+                        type="button" 
+                        onClick={() => { setIsLogin(false); setError(''); setPassword(''); }}
+                        className="auth-change-number-btn"
+                        style={{ display: 'inline', margin: 0, padding: 0 }}
+                      >
+                        Sign Up
+                      </button>
+                    </div>
                   </div>
                 ) : (
-                  <div className="auth-form-step-fade">
-                    <p style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '20px', textAlign: 'center', fontWeight: '500' }}>
-                      Enter OTP sent to {phonePrefix} {phoneNumber}
-                    </p>
-
-                    {error && (
-                      <div className="auth-error-container">
-                        {error}
+                  <div key="signup" className="auth-form-step-fade">
+                    <form onSubmit={handleSignupSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+                      <div className="auth-input-group-stacked">
+                        <label>Username</label>
+                        <input 
+                          type="text" 
+                          placeholder="Enter username" 
+                          value={username}
+                          onChange={(e) => setUsername(e.target.value)}
+                          className="auth-input-field"
+                          required
+                        />
                       </div>
-                    )}
 
-                    <form onSubmit={handleVerifyOtp} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
-                      <input 
-                        type="text" 
-                        maxLength="6"
-                        placeholder="• • • • • •" 
-                        value={otp}
-                        onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))}
-                        className="auth-otp-input-field"
-                        required
-                      />
+                      <div className="auth-input-group-stacked">
+                        <label>Email</label>
+                        <input 
+                          type="email" 
+                          placeholder="Enter email address" 
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          className="auth-input-field"
+                          required
+                        />
+                      </div>
+
+                      <div className="auth-input-group-stacked">
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                          <label style={{ margin: 0 }}>Password</label>
+                          <button 
+                            type="button" 
+                            className="auth-pwd-toggle"
+                            onClick={() => setShowPassword(!showPassword)}
+                          >
+                            <span>{showPassword ? 'HIDE' : 'SHOW'}</span>
+                          </button>
+                        </div>
+                        <input 
+                          type={showPassword ? 'text' : 'password'} 
+                          placeholder="Create password" 
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          className="auth-input-field"
+                          required
+                        />
+                      </div>
 
                       <button 
                         type="submit" 
                         disabled={loading}
                         className="auth-submit-btn-animated"
                       >
-                        {loading ? 'Verifying...' : 'VERIFY & PROCEED'}
+                        {loading ? 'Creating account...' : 'SIGN UP'}
                       </button>
                     </form>
-                    
-                    <button 
-                      onClick={() => { setStep(1); setOtp(''); setError(''); }}
-                      className="auth-change-number-btn"
-                    >
-                      Change Phone Number
-                    </button>
+
+                    <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '13px', color: 'var(--text-muted)' }}>
+                      Already have an account?{' '}
+                      <button 
+                        type="button" 
+                        onClick={() => { setIsLogin(true); setError(''); setPassword(''); }}
+                        className="auth-change-number-btn"
+                        style={{ display: 'inline', margin: 0, padding: 0 }}
+                      >
+                        Log In
+                      </button>
+                    </div>
                   </div>
                 )}
 
@@ -414,74 +445,52 @@ export default function AuthModal({ isOpen, onClose }) {
           animation: shakeError 0.4s ease-in-out;
         }
 
-        /* Input Elements */
-        .auth-input-container {
+        /* Stacked Input Stack styling */
+        .auth-input-group-stacked {
           display: flex;
-          align-items: center;
-          border: 1px solid var(--border-color);
-          border-radius: 8px;
-          background: var(--bg-tertiary);
-          overflow: hidden;
-          transition: border-color 0.3s ease, box-shadow 0.3s ease;
+          flex-direction: column;
+          align-items: stretch;
         }
-        .auth-input-container:focus-within {
+        .auth-input-group-stacked label {
+          font-size: 12px;
+          font-weight: 700;
+          color: var(--text-muted);
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          margin-bottom: 6px;
+        }
+        .auth-input-group-stacked .auth-input-field {
+          width: 100%;
+          padding: 13px 16px;
+          border-radius: 8px;
+          border: 1px solid var(--border-color);
+          font-size: 15px;
+          outline: none;
+          background: var(--bg-tertiary);
+          color: var(--text-primary);
+          transition: border-color 0.3s ease, box-shadow 0.3s ease;
+          font-family: var(--font-body);
+        }
+        .auth-input-group-stacked .auth-input-field:focus {
           border-color: var(--accent);
           box-shadow: 0 0 12px rgba(168, 240, 70, 0.2);
         }
 
-        .auth-select-prefix {
-          appearance: none;
-          WebkitAppearance: none;
-          border: none; 
-          background: transparent; 
-          outline: none; 
-          padding: 13px 28px 13px 16px; 
-          font-size: 15px; 
-          font-weight: 700; 
-          color: var(--text-primary); 
-          cursor: pointer;
-          font-family: var(--font-body);
-        }
-
-        .auth-select-arrow-icon {
-          position: absolute;
-          right: 10px;
-          top: 50%;
-          transform: translateY(-50%);
-          pointer-events: none;
+        .auth-pwd-toggle {
+          background: none;
+          border: none;
+          font-size: 12px;
+          color: var(--text-muted);
           display: flex;
           align-items: center;
-          color: var(--text-primary);
-        }
-
-        .auth-input-field {
-          flex: 1;
-          border: none;
-          padding: 13px 16px;
-          font-size: 15px;
+          gap: 4px;
+          cursor: pointer;
           outline: none;
-          background: transparent;
-          color: var(--text-primary);
-          font-family: var(--font-body);
+          font-weight: 700;
+          transition: color 0.2s ease;
         }
-
-        .auth-otp-input-field {
-          width: 100%;
-          padding: 13px 15px;
-          border-radius: 8px;
-          border: 1px solid var(--border-color);
-          font-size: 20px;
-          text-align: center;
-          letter-spacing: 0.5em;
-          outline: none;
-          background: var(--bg-tertiary);
-          color: var(--text-primary);
-          transition: border-color 0.3s ease, box-shadow 0.3s ease;
-          font-family: var(--font-body);
-        }
-        .auth-otp-input-field:focus {
-          border-color: var(--accent);
-          box-shadow: 0 0 12px rgba(168, 240, 70, 0.25);
+        .auth-pwd-toggle:hover {
+          color: var(--accent);
         }
 
         /* --- Buttons --- */

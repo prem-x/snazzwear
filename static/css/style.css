@@ -2776,14 +2776,14 @@ body {
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(10px);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 9999;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 0.4s ease, visibility 0.4s ease;
 }
 
 .auth-modal-overlay.open {
@@ -2800,15 +2800,17 @@ body {
     display: flex;
     overflow: hidden;
     position: relative;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.85), 0 0 20px rgba(168, 240, 70, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    transform: translateY(20px);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.85), 0 0 40px rgba(168, 240, 70, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transform: scale(0.92) translateY(20px);
+    opacity: 0;
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 }
 
 .auth-modal-overlay.open .auth-modal {
-    transform: translateY(0);
+    transform: scale(1) translateY(0);
+    opacity: 1;
 }
 
 .auth-close-btn {
@@ -2823,18 +2825,20 @@ body {
     z-index: 99;
     line-height: 1;
     opacity: 0.7;
-    transition: opacity 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    outline: none;
 }
 
 .auth-close-btn:hover {
-    color: #ffffff;
+    color: var(--accent);
     opacity: 1;
+    transform: rotate(90deg) scale(1.15);
 }
 
 /* Left Panel */
 .auth-left {
     flex: 1.1;
-    background: #000000;
+    background: linear-gradient(135deg, #000000 0%, #060806 100%);
     color: #ffffff;
     padding: 45px 50px;
     display: flex;
@@ -2845,6 +2849,19 @@ body {
     position: relative;
     overflow: hidden;
     border-right: 1px solid rgba(255,255,255,0.05);
+}
+
+/* Pulsating Glow */
+.auth-left::before {
+    content: '';
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(168, 240, 70, 0.08) 0%, rgba(168, 240, 70, 0) 70%);
+    z-index: 1;
+    pointer-events: none;
+    animation: pulseGlow 4s ease-in-out infinite;
 }
 
 .auth-brand {
@@ -2872,31 +2889,34 @@ body {
 /* Right Panel */
 .auth-right {
     flex: 1.2;
-    background: #000000;
+    background: #0E120F;
     display: flex;
     flex-direction: column;
     position: relative;
-    padding: 0;
+    padding: 15px;
     margin: 0;
     width: auto;
     border-radius: 0;
+    box-sizing: border-box;
 }
 
-/* Floating Inset White Card */
+/* Floating Inset Dark Card */
 .auth-white-card {
     flex: 1;
-    background: #ffffff;
-    margin: 15px;
+    background: var(--bg-secondary);
+    margin: 0;
     border-radius: 18px;
     padding: 35px 30px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    color: #0c0d12;
-    box-shadow: inset 0 0 1px rgba(0,0,0,0.1);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--glass-shadow);
     position: relative;
     overflow-y: auto;
     min-height: calc(100% - 30px);
+    box-sizing: border-box;
 }
 
 .auth-white-card::-webkit-scrollbar {
@@ -2908,7 +2928,7 @@ body {
 }
 
 .auth-white-card::-webkit-scrollbar-thumb {
-    background: #e2e8f0;
+    background: var(--border-color);
     border-radius: 10px;
 }
 
@@ -2916,16 +2936,11 @@ body {
     display: none;
     flex-direction: column;
     height: 100%;
-    animation: fadeIn 0.3s ease;
+    animation: slideInUp 0.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
 .auth-step.active {
     display: flex;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateX(10px); }
-    to { opacity: 1; transform: translateX(0); }
 }
 
 .auth-step h3 {
@@ -2933,15 +2948,15 @@ body {
     font-size: 24px;
     font-weight: 800;
     margin-bottom: 5px;
-    color: #0c0d12;
-    font-family: 'Outfit', sans-serif;
+    color: var(--text-primary);
+    font-family: var(--font-heading);
     text-transform: none;
 }
 
 .auth-subtitle {
     text-align: center;
     font-size: 14px;
-    color: #686a73;
+    color: var(--text-muted);
     margin-bottom: 25px;
     font-weight: 500;
 }
@@ -2950,25 +2965,25 @@ body {
 .auth-input-group {
     display: flex;
     align-items: center;
-    border: 1px solid #dcdde2;
+    border: 1px solid var(--border-color);
     border-radius: 10px;
     padding: 13px 15px;
     margin-bottom: 20px;
-    background: #ffffff;
-    transition: all 0.3s ease;
+    background: var(--bg-tertiary);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .auth-input-group:focus-within {
-    border-color: #0c0d12;
-    box-shadow: 0 0 0 3px rgba(12, 13, 18, 0.06);
+    border-color: var(--accent);
+    box-shadow: 0 0 12px rgba(168, 240, 70, 0.2);
 }
 
 .country-code {
     font-size: 15px;
     font-weight: 700;
-    color: #0c0d12;
+    color: var(--text-primary);
     padding-right: 15px;
-    border-right: 1px solid #dcdde2;
+    border-right: 1px solid var(--border-color);
     margin-right: 15px;
 }
 
@@ -2978,36 +2993,83 @@ body {
     outline: none;
     font-size: 15px;
     width: 100%;
-    color: #0c0d12;
+    color: var(--text-primary);
+    font-family: var(--font-body);
 }
 
 .auth-input-group input::placeholder {
-    color: #a0a3af;
+    color: var(--text-muted);
 }
 
 /* Terms */
 .auth-terms {
     text-align: center;
     font-size: 11px;
-    color: #8c8f9a;
+    color: var(--text-muted);
     margin-top: auto;
     margin-bottom: 20px;
     line-height: 1.4;
 }
 
 .auth-terms a {
-    color: #0c0d12;
+    color: var(--accent);
     font-weight: 600;
-    text-decoration: underline;
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s ease;
+}
+.auth-terms a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 1.5px;
+    bottom: -2px;
+    left: 0;
+    background-color: var(--accent);
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+.auth-terms a:hover {
+    color: #ffffff;
+    text-shadow: 0 0 8px rgba(168, 240, 70, 0.3);
+}
+.auth-terms a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+    background-color: #ffffff;
 }
 
 .auth-trouble {
     display: block;
     text-align: center;
     font-size: 13px;
-    color: #686a73;
+    color: var(--accent);
     font-weight: 600;
-    text-decoration: underline;
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s ease;
+}
+.auth-trouble::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 1.5px;
+    bottom: -2px;
+    left: 0;
+    background-color: var(--accent);
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+.auth-trouble:hover {
+    color: #ffffff;
+    text-shadow: 0 0 8px rgba(168, 240, 70, 0.3);
+}
+.auth-trouble:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+    background-color: #ffffff;
 }
 
 .mt-auto {
@@ -3017,18 +3079,23 @@ body {
 /* OTP Step */
 #displayMobile {
     font-weight: 700;
-    color: #0c0d12;
+    color: var(--text-primary);
 }
 
 .edit-btn {
-    color: #000000;
+    color: var(--accent);
     text-decoration: none;
     font-size: 12px;
     font-weight: 700;
-    border: 1px solid #000000;
+    border: 1px solid var(--accent);
     border-radius: 10px;
     padding: 2px 10px;
     margin-left: 6px;
+    transition: all 0.2s ease;
+}
+.edit-btn:hover {
+    background: var(--accent);
+    color: #000000;
 }
 
 .otp-inputs {
@@ -3041,9 +3108,9 @@ body {
 .otp-box {
     width: 50px;
     height: 50px;
-    border: 1px solid #dcdde2;
-    background: #ffffff;
-    color: #0c0d12;
+    border: 1px solid var(--border-color);
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
     border-radius: 10px;
     text-align: center;
     font-size: 20px;
@@ -3053,14 +3120,14 @@ body {
 }
 
 .otp-box:focus {
-    border-color: #0c0d12;
-    box-shadow: 0 0 0 3px rgba(12, 13, 18, 0.06);
+    border-color: var(--accent);
+    box-shadow: 0 0 12px rgba(168, 240, 70, 0.25);
 }
 
 .resend-text {
     text-align: center;
     font-size: 12px;
-    color: #686a73;
+    color: var(--text-muted);
     margin-bottom: 20px;
 }
 
@@ -3070,30 +3137,57 @@ body {
 }
 
 .verify-btn {
-    background: #b1b4be;
-    color: #ffffff;
+    background: var(--border-color);
+    color: var(--text-muted);
     border: none;
     width: 100%;
     padding: 14px;
     border-radius: 30px;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--font-heading);
     font-size: 14px;
     font-weight: 800;
     cursor: not-allowed;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
 .verify-btn.active {
-    background: #000000;
-    color: #ffffff;
+    background: var(--accent);
+    color: #000000;
     cursor: pointer;
-    box-shadow: none;
+    box-shadow: 0 4px 15px rgba(168, 240, 70, 0.2);
+    position: relative;
+    overflow: hidden;
 }
 
 .verify-btn.active:hover {
-    background: #23252f;
+    background: #bbf861;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(168, 240, 70, 0.4);
+}
+
+.verify-btn.active::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.25) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: skewX(-25deg);
+    transition: 0.75s;
+    opacity: 0;
+}
+.verify-btn.active:hover::after {
+    left: 125%;
+    opacity: 1;
+    transition: all 0.75s ease;
 }
 
 /* Success Step */
@@ -3110,8 +3204,8 @@ body {
     font-size: 22px;
     margin-bottom: 25px;
     line-height: 1.4;
-    color: #0c0d12;
-    font-family: 'Outfit', sans-serif;
+    color: var(--text-primary);
+    font-family: var(--font-heading);
     text-transform: none;
 }
 
@@ -3119,13 +3213,13 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: #686a73;
+    color: var(--text-muted);
     font-size: 14px;
 }
 
 .spin-icon {
     animation: spin 1s linear infinite;
-    color: #000000;
+    color: var(--accent);
 }
 
 @keyframes spin {

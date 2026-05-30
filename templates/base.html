@@ -80,108 +80,79 @@
 </div><!-- end page-wrapper -->
 
 <footer class="main-footer">
+    <div class="footer-container">
+        <!-- Top Section: Brand + Tagline -->
+        <div class="footer-top-row">
+            <div class="footer-brand-logo">
+                <span class="brand-text">SNAZZWEAR</span><span class="brand-badge">S</span>
+            </div>
+            <div class="footer-tagline">
+                WE DEFINE MODERN STREETWEAR FOR THE NEXT GENERATION
+            </div>
+        </div>
 
-    <!-- Top section: Brand + Social + Link Columns -->
-    <div class="footer-top">
+        <hr class="footer-divider">
 
-        <!-- Left: Brand + Social Icons -->
-        <div class="footer-brand-col">
-            <h1 class="footer-logo">SNAZZ<br>WEAR</h1>
+        <!-- Middle Section -->
+        <div class="footer-middle-row">
+            <!-- Left Side: Subscription -->
+            <div class="footer-sub-col">
+                <h4 class="footer-sub-title">Subscribe to our newsletter</h4>
+                <form class="footer-sub-form" method="post" action="#" onsubmit="event.preventDefault();">
+                    <div class="footer-sub-input-wrapper">
+                        <input type="email" placeholder="Email*" class="footer-sub-input" required>
+                        <button type="submit" class="footer-sub-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        </button>
+                    </div>
+                </form>
+                <p class="footer-sub-desc">
+                    By subscribing you agree to our <a href="#">privacy policy</a> and it's terms.
+                </p>
+            </div>
+
+            <!-- Right Side: Links columns -->
+            <div class="footer-links-wrapper">
+                <div class="footer-links-col">
+                    <a href="{% url 'home' %}">ABOUT US</a>
+                    <a href="{% url 'shop' %}">COLLECTIONS</a>
+                    <a href="{% url 'shop' %}">LOOKBOOKS</a>
+                    <a href="{% url 'shop' %}">STORES</a>
+                </div>
+                <div class="footer-links-col">
+                    <a href="#">SIZING GUIDE</a>
+                    <a href="#">SHIPPING & RETURNS</a>
+                    <a href="#">JOURNAL</a>
+                    <a href="#">CAREERS</a>
+                </div>
+                <div class="footer-links-col">
+                    <a href="#">CONTACT</a>
+                    <a href="#">PRIVACY POLICY</a>
+                    <a href="#">TERMS OF SERVICE</a>
+                </div>
+            </div>
+        </div>
+
+        <hr class="footer-divider">
+
+        <!-- Bottom Section -->
+        <div class="footer-bottom-row">
+            <div class="footer-copy">
+                © Snazz Wear 2026
+            </div>
             <div class="footer-socials">
-                <!-- Facebook -->
-                <a href="#" class="social-icon" title="Facebook">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                <a href="#" aria-label="Instagram">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
                 </a>
-                <!-- X / Twitter -->
-                <a href="#" class="social-icon" title="X">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                </a>
-                <!-- Instagram -->
-                <a href="#" class="social-icon" title="Instagram">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-                </a>
-                <!-- Pinterest -->
-                <a href="#" class="social-icon" title="Pinterest">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+                <a href="#" aria-label="LinkedIn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
                 </a>
             </div>
-        </div>
-
-        <!-- Center: SHOP Column -->
-        <div class="footer-col">
-            <h4 class="footer-col-heading">SHOP</h4>
-            <a href="{% url 'shop' %}" class="footer-link footer-link-highlight">BEST SELLERS</a>
-            <a href="{% url 'shop' %}" class="footer-link">Special Prices</a>
-            <a href="{% url 'shop' %}" class="footer-link">T-Shirts</a>
-            <a href="{% url 'shop' %}" class="footer-link">Oversized T-shirt</a>
-            <a href="{% url 'shop' %}" class="footer-link">Oversized Shirt</a>
-            <a href="{% url 'shop' %}" class="footer-link footer-link-highlight">NEW ARRIVALS</a>
-            <a href="{% url 'shop' %}" class="footer-link">Signature</a>
-        </div>
-
-        <!-- Center: TRENDING Column -->
-        <div class="footer-col">
-            <h4 class="footer-col-heading">TRENDING</h4>
-            <a href="{% url 'shop' %}" class="footer-link">Premium Collection</a>
-            <a href="{% url 'shop' %}" class="footer-link">Anime Collection</a>
-            <a href="{% url 'shop' %}" class="footer-link footer-link-highlight">Oversized T-shirt</a>
-            <a href="{% url 'shop' %}" class="footer-link footer-link-highlight">Oversized Shirt</a>
-            <a href="{% url 'shop' %}" class="footer-link">Bottoms for Women</a>
-            <a href="{% url 'shop' %}" class="footer-link">Bottoms for Men</a>
-            <a href="{% url 'shop' %}" class="footer-link">Sweatshirts &amp; Hoodies</a>
-            <a href="{% url 'shop' %}" class="footer-link">Jacket</a>
-        </div>
-
-        <!-- Right: INFO Column -->
-        <div class="footer-col">
-            <h4 class="footer-col-heading">INFO</h4>
-            <a href="#" class="footer-link">Terms &amp; Conditions</a>
-            <a href="#" class="footer-link">Stores Near Me</a>
-            <a href="#" class="footer-link">Blogs</a>
-            <a href="#" class="footer-link">FAQs</a>
-            <a href="#" class="footer-link">Contact</a>
-            <a href="#" class="footer-link">Privacy Policy</a>
-            <a href="#" class="footer-link">Returns and Exchange Policy</a>
-            <a href="#" class="footer-link footer-link-highlight">Offers and Deals</a>
-        </div>
-
-    </div>
-
-    <!-- Middle section: Explore + Newsletter -->
-    <div class="footer-middle">
-
-        <!-- Explore -->
-        <div class="footer-explore">
-            <h4 class="footer-col-heading">Explore</h4>
-            <a href="{% url 'shop' %}" class="footer-link">Search</a>
-            <a href="#" class="footer-link">Return</a>
-            <a href="{% url 'home' %}" class="footer-link">About Us</a>
-        </div>
-
-        <!-- Newsletter -->
-        <div class="footer-newsletter">
-            <h4 class="footer-newsletter-title">WE'VE GOT YOU COVERED:</h4>
-            <p class="footer-newsletter-sub">Beyond the Outfit: Be the first to know about new arrivals,<br>sales &amp; exclusive drops.</p>
-            <div class="footer-email-row">
-                <input type="email" placeholder="Email" class="footer-email-input">
-                <button class="footer-email-btn">→</button>
+            <div class="footer-by">
+                Website by Antigravity
             </div>
         </div>
-
     </div>
-
-
-    <!-- Bottom Bar -->
-    <div class="footer-bottom">
-        <p>© 2025 SNAZZ WEAR®. All rights reserved. Designed by Prem</p>
-        <div class="payment-icons">
-            <div class="pay-pill">VISA</div>
-            <div class="pay-pill">Mastercard</div>
-            <div class="pay-pill">PayPal</div>
-            <div class="pay-pill">GPay</div>
-        </div>
-    </div>
-
 </footer>
 
 </div>

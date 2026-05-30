@@ -21,6 +21,7 @@ urlpatterns = [
     path('api/cart/apply-coupon/', api.api_cart_apply_coupon, name='api_cart_apply_coupon'),
     path('api/checkout/', api.api_checkout, name='api_checkout'),
     path('api/auth/status/', api.api_auth_status, name='api_auth_status'),
+    path('api/auth/check-phone/', api.api_auth_check_phone, name='api_auth_check_phone'),
     path('api/auth/login/', api.api_auth_login, name='api_auth_login'),
     path('api/auth/signup/', api.api_auth_signup, name='api_auth_signup'),
     path('api/auth/logout/', api.api_auth_logout, name='api_auth_logout'),

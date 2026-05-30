@@ -498,6 +498,22 @@ def api_auth_status(request):
         })
     return JsonResponse({"is_authenticated": False})
 
+def api_auth_check_phone(request):
+    if request.method != "POST":
+        return JsonResponse({"success": False, "message": "POST required"}, status=400)
+
+    try:
+        body = json.loads(request.body)
+        username = body.get("username")
+    except Exception:
+        username = request.POST.get("username")
+
+    if not username:
+        return JsonResponse({"success": False, "message": "Phone number is required"}, status=400)
+
+    exists = User.objects.filter(username=username).exists()
+    return JsonResponse({"success": True, "exists": exists})
+
 def api_auth_login(request):
     if request.method != "POST":
         return JsonResponse({"success": False, "message": "POST required"}, status=400)

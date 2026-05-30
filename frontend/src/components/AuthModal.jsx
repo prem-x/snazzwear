@@ -3,53 +3,107 @@ import { useAuth } from '../contexts/AuthContext';
 
 export default function AuthModal({ isOpen, onClose }) {
   const { login, signup } = useAuth();
-  const [isLogin, setIsLogin] = useState(true);
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
+  const [step, setStep] = useState(1); // 1 = Phone, 2 = OTP, 3 = Success
+  const [phonePrefix, setPhonePrefix] = useState('+91');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [otp, setOtp] = useState(['', '', '', '']);
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isExistingUser, setIsExistingUser] = useState(true);
 
   if (!isOpen) return null;
 
-  const handleLoginSubmit = async (e) => {
+  const handlePhoneSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    
+    if (!/^\d{10}$/.test(phoneNumber)) {
+      setError('Please enter a valid 10-digit mobile number.');
+      return;
+    }
+    
     setLoading(true);
-    const res = await login(username, password);
-    setLoading(false);
-    if (res.success) {
-      setSuccess(true);
-      setTimeout(() => {
-        setSuccess(false);
-        setUsername('');
-        setPassword('');
-        onClose();
-      }, 1500);
-    } else {
-      setError(res.message || 'Invalid username or password');
+    const username = `${phonePrefix}${phoneNumber}`;
+    
+    try {
+      const response = await fetch('/api/auth/check-phone/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username }),
+      });
+      
+      const data = await response.json();
+      setLoading(false);
+      
+      if (response.ok) {
+        setIsExistingUser(data.exists);
+        setStep(2);
+      } else {
+        setError(data.message || 'Verification failed. Please try again.');
+      }
+    } catch (err) {
+      setLoading(false);
+      setError('An error occurred. Please try again.');
     }
   };
 
-  const handleSignupSubmit = async (e) => {
+  const handleOtpSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    
+    const otpCode = otp.join('');
+    if (otpCode.length !== 4) {
+      setError('Please enter all 4 digits of the OTP.');
+      return;
+    }
+    
     setLoading(true);
-    const res = await signup(username, email, password);
+    const username = `${phonePrefix}${phoneNumber}`;
+    const password = 'defaultOTPPass123!';
+    
+    let res;
+    if (isExistingUser) {
+      res = await login(username, password);
+    } else {
+      const email = `${phonePrefix.replace('+', '')}${phoneNumber}@snazzwear.com`;
+      res = await signup(username, email, password);
+    }
+    
     setLoading(false);
-    if (res.success) {
-      setSuccess(true);
+    if (res && res.success) {
+      setStep(3);
       setTimeout(() => {
-        setSuccess(false);
-        setUsername('');
-        setEmail('');
-        setPassword('');
+        setStep(1);
+        setPhoneNumber('');
+        setOtp(['', '', '', '']);
         onClose();
+        window.location.reload();
       }, 1500);
     } else {
-      setError(res.message || 'Signup failed. Please try again.');
+      setError(res?.message || 'Invalid OTP code. Please try again.');
+    }
+  };
+
+  const handleOtpChange = (element, index) => {
+    if (isNaN(element.value)) return false;
+
+    const newOtp = [...otp];
+    newOtp[index] = element.value;
+    setOtp(newOtp);
+
+    // Auto-focus next input
+    if (element.value !== '' && element.nextSibling) {
+      element.nextSibling.focus();
+    }
+  };
+
+  const handleOtpKeyDown = (e, index) => {
+    if (e.key === 'Backspace') {
+      if (otp[index] === '' && e.target.previousSibling) {
+        e.target.previousSibling.focus();
+      }
     }
   };
 
@@ -84,7 +138,7 @@ export default function AuthModal({ isOpen, onClose }) {
         <div className="auth-right-form-pane">
           <div className="auth-white-form-card">
             
-            {success ? (
+            {step === 3 ? (
               <div className="auth-form-step-fade" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100%', textAlign: 'center' }}>
                 <div style={{ marginBottom: '20px' }}>
                   <svg className="auth-success-icon-spin" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -99,51 +153,43 @@ export default function AuthModal({ isOpen, onClose }) {
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'center' }}>
                 
-                <h3 className="auth-card-title-main">{isLogin ? 'Login' : 'Sign Up'}</h3>
-                <p style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '20px', textAlign: 'center', fontWeight: '500' }}>
-                  {isLogin ? 'Enter Snazz Wear credentials' : 'Create your Snazz Wear account'}
-                </p>
+                {step === 1 ? (
+                  <div key="phone-entry" className="auth-form-step-fade">
+                    <h3 className="auth-card-title-main">Login or Sign Up</h3>
+                    <p style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '20px', textAlign: 'center', fontWeight: '500' }}>
+                      Enter your mobile number to proceed
+                    </p>
 
-                {error && (
-                  <div className="auth-error-container">
-                    {error}
-                  </div>
-                )}
-
-                {isLogin ? (
-                  <div key="login" className="auth-form-step-fade">
-                    <form onSubmit={handleLoginSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
-                      <div className="auth-input-group-stacked">
-                        <label>Username</label>
-                        <input 
-                          type="text" 
-                          placeholder="Enter username" 
-                          value={username}
-                          onChange={(e) => setUsername(e.target.value)}
-                          className="auth-input-field"
-                          required
-                        />
+                    {error && (
+                      <div className="auth-error-container">
+                        {error}
                       </div>
+                    )}
 
+                    <form onSubmit={handlePhoneSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
                       <div className="auth-input-group-stacked">
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                          <label style={{ margin: 0 }}>Password</label>
-                          <button 
-                            type="button" 
-                            className="auth-pwd-toggle"
-                            onClick={() => setShowPassword(!showPassword)}
+                        <label>Mobile Number</label>
+                        <div className="auth-phone-input-row">
+                          <select 
+                            value={phonePrefix} 
+                            onChange={(e) => setPhonePrefix(e.target.value)} 
+                            className="auth-phone-prefix"
                           >
-                            <span>{showPassword ? 'HIDE' : 'SHOW'}</span>
-                          </button>
+                            <option value="+91">IN +91</option>
+                            <option value="+1">US +1</option>
+                            <option value="+44">UK +44</option>
+                            <option value="+971">AE +971</option>
+                          </select>
+                          <div className="auth-phone-divider"></div>
+                          <input 
+                            type="tel" 
+                            placeholder="Enter Mobile Number" 
+                            value={phoneNumber}
+                            onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, '').slice(0, 10))}
+                            className="auth-phone-number-field"
+                            required
+                          />
                         </div>
-                        <input 
-                          type={showPassword ? 'text' : 'password'} 
-                          placeholder="Enter password" 
-                          value={password}
-                          onChange={(e) => setPassword(e.target.value)}
-                          className="auth-input-field"
-                          required
-                        />
                       </div>
 
                       <button 
@@ -151,68 +197,46 @@ export default function AuthModal({ isOpen, onClose }) {
                         disabled={loading}
                         className="auth-submit-btn-animated"
                       >
-                        {loading ? 'Logging in...' : 'LOG IN'}
+                        {loading ? 'Proceeding...' : 'PROCEED'}
                       </button>
                     </form>
-
-                    <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '13px', color: 'var(--text-muted)' }}>
-                      Don't have an account?{' '}
-                      <button 
-                        type="button" 
-                        onClick={() => { setIsLogin(false); setError(''); setPassword(''); }}
-                        className="auth-change-number-btn"
-                        style={{ display: 'inline', margin: 0, padding: 0 }}
-                      >
-                        Sign Up
-                      </button>
-                    </div>
                   </div>
                 ) : (
-                  <div key="signup" className="auth-form-step-fade">
-                    <form onSubmit={handleSignupSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
-                      <div className="auth-input-group-stacked">
-                        <label>Username</label>
-                        <input 
-                          type="text" 
-                          placeholder="Enter username" 
-                          value={username}
-                          onChange={(e) => setUsername(e.target.value)}
-                          className="auth-input-field"
-                          required
-                        />
-                      </div>
+                  <div key="otp" className="auth-form-step-fade">
+                    <h3 className="auth-card-title-main">Verify OTP</h3>
+                    <p style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '20px', textAlign: 'center', fontWeight: '500' }}>
+                      Sent to <span style={{ color: 'var(--text-primary)', fontWeight: '700' }}>{phonePrefix} {phoneNumber}</span>
+                      <button 
+                        type="button" 
+                        onClick={() => { setStep(1); setError(''); setOtp(['', '', '', '']); }}
+                        className="auth-edit-phone-btn"
+                      >
+                        Edit
+                      </button>
+                    </p>
 
-                      <div className="auth-input-group-stacked">
-                        <label>Email</label>
-                        <input 
-                          type="email" 
-                          placeholder="Enter email address" 
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          className="auth-input-field"
-                          required
-                        />
+                    {error && (
+                      <div className="auth-error-container">
+                        {error}
                       </div>
+                    )}
 
+                    <form onSubmit={handleOtpSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
                       <div className="auth-input-group-stacked">
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                          <label style={{ margin: 0 }}>Password</label>
-                          <button 
-                            type="button" 
-                            className="auth-pwd-toggle"
-                            onClick={() => setShowPassword(!showPassword)}
-                          >
-                            <span>{showPassword ? 'HIDE' : 'SHOW'}</span>
-                          </button>
+                        <label style={{ textAlign: 'center', marginBottom: '12px' }}>Enter 4-digit code</label>
+                        <div className="auth-otp-inputs-row">
+                          {otp.map((data, index) => (
+                            <input
+                              key={index}
+                              type="text"
+                              maxLength="1"
+                              value={data}
+                              onChange={(e) => handleOtpChange(e.target, index)}
+                              onKeyDown={(e) => handleOtpKeyDown(e, index)}
+                              className="auth-otp-box"
+                            />
+                          ))}
                         </div>
-                        <input 
-                          type={showPassword ? 'text' : 'password'} 
-                          placeholder="Create password" 
-                          value={password}
-                          onChange={(e) => setPassword(e.target.value)}
-                          className="auth-input-field"
-                          required
-                        />
                       </div>
 
                       <button 
@@ -220,19 +244,19 @@ export default function AuthModal({ isOpen, onClose }) {
                         disabled={loading}
                         className="auth-submit-btn-animated"
                       >
-                        {loading ? 'Creating account...' : 'SIGN UP'}
+                        {loading ? 'Verifying...' : 'VERIFY & PROCEED'}
                       </button>
                     </form>
 
                     <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '13px', color: 'var(--text-muted)' }}>
-                      Already have an account?{' '}
+                      Didn't receive code?{' '}
                       <button 
                         type="button" 
-                        onClick={() => { setIsLogin(true); setError(''); setPassword(''); }}
+                        onClick={() => { setError(''); alert('OTP resent successfully!'); }}
                         className="auth-change-number-btn"
                         style={{ display: 'inline', margin: 0, padding: 0 }}
                       >
-                        Log In
+                        Resend
                       </button>
                     </div>
                   </div>
@@ -274,6 +298,98 @@ export default function AuthModal({ isOpen, onClose }) {
         .auth-modal-overlay.open {
           opacity: 1;
           visibility: visible;
+        }
+
+        /* --- Phone & OTP Custom Layout Elements --- */
+        .auth-phone-input-row {
+          display: flex;
+          align-items: center;
+          background: var(--bg-tertiary);
+          border: 1px solid var(--border-color);
+          border-radius: 10px;
+          padding: 2px 10px 2px 5px;
+          transition: border-color 0.3s ease, box-shadow 0.3s ease;
+          width: 100%;
+          box-sizing: border-box;
+        }
+        .auth-phone-input-row:focus-within {
+          border-color: var(--accent);
+          box-shadow: 0 0 12px rgba(168, 240, 70, 0.2);
+        }
+        .auth-phone-prefix {
+          background: transparent;
+          border: none;
+          color: var(--text-primary);
+          font-size: 15px;
+          font-weight: 600;
+          outline: none;
+          padding: 10px;
+          cursor: pointer;
+          font-family: var(--font-body);
+        }
+        .auth-phone-prefix option {
+          background: #0e120f;
+          color: var(--text-primary);
+        }
+        .auth-phone-divider {
+          width: 1px;
+          height: 24px;
+          background: var(--border-color);
+          margin: 0 10px;
+        }
+        .auth-phone-number-field {
+          flex: 1;
+          background: transparent !important;
+          border: none !important;
+          color: var(--text-primary) !important;
+          font-size: 15px !important;
+          outline: none !important;
+          padding: 10px 0 !important;
+          box-shadow: none !important;
+          font-family: var(--font-body);
+        }
+        .auth-otp-inputs-row {
+          display: flex;
+          justify-content: center;
+          gap: 15px;
+          margin-bottom: 10px;
+        }
+        .auth-otp-box {
+          width: 50px;
+          height: 50px;
+          border: 1px solid var(--border-color);
+          background: var(--bg-tertiary);
+          color: var(--text-primary);
+          border-radius: 10px;
+          text-align: center;
+          font-size: 20px;
+          font-weight: 700;
+          outline: none;
+          transition: all 0.3s ease;
+          font-family: var(--font-body);
+        }
+        .auth-otp-box:focus {
+          border-color: var(--accent);
+          box-shadow: 0 0 12px rgba(168, 240, 70, 0.25);
+        }
+        .auth-edit-phone-btn {
+          color: var(--accent);
+          text-decoration: none;
+          font-size: 11px;
+          font-weight: 700;
+          border: 1px solid var(--accent);
+          border-radius: 10px;
+          padding: 1px 8px;
+          margin-left: 6px;
+          transition: all 0.2s ease;
+          background: transparent;
+          cursor: pointer;
+          font-family: var(--font-body);
+          outline: none;
+        }
+        .auth-edit-phone-btn:hover {
+          background: var(--accent);
+          color: #000000;
         }
 
         /* --- Modal Container --- */

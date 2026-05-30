@@ -138,20 +138,9 @@ export default function AuthModal({ isOpen, onClose }) {
           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, opacity: 0.02, pointerEvents: 'none', backgroundImage: 'radial-gradient(var(--accent) 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
           
           <div style={{ zIndex: 2, width: '100%' }}>
-            {/* SNAZZ WEAR and Kwik Pass Badge Row */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '20px', marginBottom: '35px' }}>
-              <img src="/logo.png" alt="SNAZZ WEAR" style={{ height: '55px', width: 'auto', objectFit: 'contain' }} />
-              
-              {/* Kwik Pass Badge */}
-              <div style={{ display: 'flex', alignItems: 'center', fontFamily: "var(--font-heading)", fontSize: '15px', fontWeight: '800', color: '#ffffff', gap: '2px' }}>
-                <span>Kwik</span>
-                <span style={{ color: 'var(--accent)', display: 'flex', alignItems: 'center', margin: '0 2px' }}>
-                  <svg width="14" height="18" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M19 9h-6l3-7L5 15h6l-3 7z"/>
-                  </svg>
-                </span>
-                <span>Pass</span>
-              </div>
+            {/* SNAZZ WEAR Logo */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '35px' }}>
+              <img src="/logo.png" alt="SNAZZ WEAR" style={{ height: '150px', width: 'auto', objectFit: 'contain' }} />
             </div>
 
             {/* Welcoming Text */}

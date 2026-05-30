@@ -2792,20 +2792,21 @@ body {
 }
 
 .auth-modal {
-    width: 900px;
-    max-width: 95%;
-    height: 520px;
-    background: #000000;
-    border-radius: 24px;
     display: flex;
-    overflow: hidden;
+    flex-direction: column;
+    width: 100%;
+    max-width: 440px;
+    background: #0A0E0B;
+    border-radius: 20px;
+    padding: 40px 30px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.85), 0 0 40px rgba(168, 240, 70, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     position: relative;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.85), 0 0 40px rgba(168, 240, 70, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.1);
     transform: scale(0.92) translateY(20px);
     opacity: 0;
     transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
-    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-family: 'Outfit', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    box-sizing: border-box;
 }
 
 .auth-modal-overlay.open .auth-modal {
@@ -2815,24 +2816,23 @@ body {
 
 .auth-close-btn {
     position: absolute;
-    top: 20px;
-    right: 25px;
+    top: 15px;
+    right: 20px;
     background: none;
     border: none;
     color: #ffffff;
-    font-size: 28px;
+    font-size: 24px;
     cursor: pointer;
     z-index: 99;
     line-height: 1;
-    opacity: 0.7;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    opacity: 0.6;
+    transition: all 0.3s ease;
     outline: none;
 }
 
 .auth-close-btn:hover {
-    color: var(--accent);
     opacity: 1;
-    transform: rotate(90deg) scale(1.15);
+    transform: scale(1.1);
 }
 
 /* Left Panel */
@@ -2965,10 +2965,10 @@ body {
 .auth-phone-input-row {
     display: flex;
     align-items: center;
-    background: var(--bg-tertiary);
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
-    padding: 2px 10px 2px 5px;
+    background: #000000;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 2px 14px;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     width: 100%;
     box-sizing: border-box;
@@ -2981,29 +2981,24 @@ body {
     background: transparent;
     border: none;
     color: var(--text-primary);
-    font-size: 15px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 700;
     outline: none;
-    padding: 10px;
-    cursor: pointer;
+    padding: 10px 0;
     font-family: var(--font-body);
-}
-.auth-phone-prefix option {
-    background: #0E120F;
-    color: var(--text-primary);
 }
 .auth-phone-divider {
     width: 1px;
     height: 24px;
-    background: var(--border-color);
-    margin: 0 10px;
+    background: rgba(255, 255, 255, 0.15);
+    margin: 0 14px;
 }
 .auth-phone-number-field {
     flex: 1;
     background: transparent !important;
     border: none !important;
     color: var(--text-primary) !important;
-    font-size: 15px !important;
+    font-size: 16px !important;
     outline: none !important;
     padding: 10px 0 !important;
     box-shadow: none !important;
@@ -3220,7 +3215,7 @@ body {
     border: none;
     width: 100%;
     padding: 14px;
-    border-radius: 30px;
+    border-radius: 12px;
     font-family: var(--font-heading);
     font-size: 14px;
     font-weight: 800;
@@ -3234,7 +3229,7 @@ body {
     background: var(--accent);
     color: #000000;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(168, 240, 70, 0.2);
+    box-shadow: 0 0 15px rgba(168, 240, 70, 0.3);
     position: relative;
     overflow: hidden;
 }
@@ -3242,8 +3237,9 @@ body {
 .verify-btn.active:hover {
     background: #bbf861;
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(168, 240, 70, 0.4);
+    box-shadow: 0 0 25px rgba(168, 240, 70, 0.5);
 }
+
 
 .verify-btn.active::after {
     content: '';
@@ -3667,14 +3663,25 @@ body {
     background: rgba(0, 0, 0, 0.6) !important;
     backdrop-filter: blur(12px) !important;
     -webkit-backdrop-filter: blur(12px) !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: flex-start !important;
+    overflow-y: auto !important;
+    padding: 40px 20px !important;
+    box-sizing: border-box !important;
 }
 
 .auth-modal {
-    background: rgba(15, 16, 19, 0.5) !important;
-    backdrop-filter: var(--glass-blur) !important;
-    -webkit-backdrop-filter: var(--glass-blur) !important;
-    border: 1px solid var(--glass-border) !important;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), var(--glass-shadow) !important;
+    background: #0A0E0B !important;
+    border-radius: 20px !important;
+    padding: 40px 30px !important;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.85), 0 0 40px rgba(168, 240, 70, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    width: 90% !important;
+    max-width: 440px !important;
+    margin: auto !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
 }
 
 .auth-left {
@@ -3771,4 +3778,98 @@ body {
     background: var(--accent) !important;
     border-color: transparent !important;
 }
+
+/* ================= SNAZZWEAR CUSTOM CLEAN AUTH MODAL STYLE HELPER CLASS OVERRIDES ================= */
+.auth-input-group-stacked {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    margin-bottom: 20px !important;
+}
+
+.auth-input-label-caps {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    color: #6C706E !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.8px !important;
+    margin-bottom: 8px !important;
+    text-align: left !important;
+    display: block !important;
+}
+
+.auth-footer-agreement-text {
+    font-size: 11px !important;
+    color: #5A5E5C !important;
+    text-align: center !important;
+    margin-top: 25px !important;
+    line-height: 1.5 !important;
+}
+
+.auth-footer-agreement-text a {
+    color: var(--accent) !important;
+    font-weight: 700 !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease !important;
+}
+
+.auth-footer-agreement-text a:hover {
+    text-decoration: underline !important;
+    color: #bbf861 !important;
+}
+
+.auth-link-animated {
+    color: var(--accent) !important;
+    font-weight: 700 !important;
+    text-decoration: none !important;
+}
+
+.auth-link-animated:hover {
+    text-decoration: underline !important;
+    color: #bbf861 !important;
+}
+
+.auth-card-title-main {
+    font-size: 28px !important;
+    font-weight: 800 !important;
+    margin-bottom: 8px !important;
+    font-family: var(--font-heading) !important;
+    color: var(--text-primary) !important;
+    text-align: center !important;
+    letter-spacing: -0.5px !important;
+    text-transform: none !important;
+}
+
+.auth-card-subtitle-sub {
+    font-size: 14px !important;
+    color: #8A8E8C !important;
+    margin-bottom: 28px !important;
+    text-align: center !important;
+    font-weight: 500 !important;
+    font-family: var(--font-body) !important;
+}
+
+.auth-change-number-btn {
+    background: none !important;
+    border: none !important;
+    color: var(--accent) !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    text-decoration: underline !important;
+    cursor: pointer !important;
+    outline: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: inline !important;
+    transition: color 0.2s ease !important;
+}
+
+.auth-change-number-btn:hover {
+    color: #bbf861 !important;
+}
+
 
